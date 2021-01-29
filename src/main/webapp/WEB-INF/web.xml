@@ -57,16 +57,6 @@
 		<servlet-name>hello_servlet</servlet-name>
 		<url-pattern>/hello</url-pattern>
 	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>new_servlet</servlet-name>
-		<servlet-class>de.unidue.inf.is.NewServlet</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>new_servlet</servlet-name>
-		<url-pattern>/hi</url-pattern>
-	</servlet-mapping>
 	
 	<servlet>
 		<servlet-name>onlineLearner_servlet</servlet-name>
