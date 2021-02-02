@@ -59,6 +59,16 @@
 	</servlet-mapping>
 
 	<servlet>
+		<servlet-name>mainPage_servlet</servlet-name>
+		<servlet-class>de.unidue.inf.is.MainPageServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>mainPage_servlet</servlet-name>
+		<url-pattern>/view_main</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
 		<servlet-name>check_servlet</servlet-name>
 		<servlet-class>de.unidue.inf.is.CheckServlet</servlet-class>
 	</servlet>
