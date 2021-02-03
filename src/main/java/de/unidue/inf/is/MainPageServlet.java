@@ -21,9 +21,11 @@ public class MainPageServlet extends HttpServlet {
             throws ServletException, IOException{
         if (!courseStore.showCourse().isEmpty()) {
             request.setAttribute("mycourse", courseStore.showCourse());
+            request.setAttribute("myowncourse", courseStore.showCourse());
         }
         else {
             request.setAttribute("mycourse", "There is no course available at all!");
+            request.setAttribute("myowncourse", "There is no course available at all!");
         }
         request.getRequestDispatcher("/mainPage.ftl").forward(request, response);
     }
