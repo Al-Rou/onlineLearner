@@ -2,30 +2,37 @@ package de.unidue.inf.is.domain;
 
 public final class User {
 
-    private String firstname;
-    private String lastname;
+    private String name;
     private String email;
-    private int userNumber;
+    private int bNummer;
 
-
-    public User() {
+    public User(int bNummer, String email, String name) {
+        this.name = name;
+        this.email = email;
+        this.bNummer = bNummer;
     }
 
-
-    public User(String firstname, String lastname) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-
+    public String getName() {
+        return name;
     }
 
-
-    public String getFirstname() {
-        return firstname;
+    public void setName(String name) {
+        this.name = name;
     }
 
-
-    public String getLastname() {
-        return lastname;
+    public String getEmail() {
+        return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getbNummer() {
+        return bNummer;
+    }
+
+    public void setbNummer(int bNummer) {
+        this.bNummer = bNummer;
+    }
 }

@@ -1,5 +1,6 @@
 package de.unidue.inf.is;
 
+import de.unidue.inf.is.stores.LoginStore;
 import de.unidue.inf.is.utils.DBUtil;
 
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import java.io.IOException;
 public class LoginPageServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private String errorMessage = "";
+    private static LoginStore loginStore = new LoginStore();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -24,8 +26,9 @@ public class LoginPageServlet extends HttpServlet {
         throws ServletException, IOException
     {
         String user = request.getParameter("username");
-        if (!user.equalsIgnoreCase("dummy@dummy.com"))
+        if (!loginStore.userAuthenticated(user))
         {
+            errorMessage += "User Authentication Failed! Try again or stop messing around!!";
             doGet(request, response);
         }
         else
