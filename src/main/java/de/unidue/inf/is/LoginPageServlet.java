@@ -1,5 +1,7 @@
 package de.unidue.inf.is;
 
+import de.unidue.inf.is.utils.DBUtil;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -8,7 +10,7 @@ import java.io.IOException;
 
 public class LoginPageServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private String errorMessage = " ";
+    private String errorMessage = "";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -16,5 +18,21 @@ public class LoginPageServlet extends HttpServlet {
     {
         request.setAttribute("error", errorMessage);
         request.getRequestDispatcher("/loginPage.ftl").forward(request, response);
+    }
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException
+    {
+        String user = request.getParameter("username");
+        if (!user.equalsIgnoreCase("dummy@dummy.com"))
+        {
+            doGet(request, response);
+        }
+        else
+        {
+            DBUtil.theUser = user;
+            MainPageServlet mainPageServlet = new MainPageServlet();
+            mainPageServlet.doGet(request, response);
+        }
     }
 }
