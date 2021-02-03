@@ -16,41 +16,25 @@ import java.util.List;
 public class CourseStore implements Closeable {
     private Connection connection;
     private boolean complete;
-    private List<String> result = new ArrayList<>();
-
-    public List<String> getResult() {
-        return result;
-    }
-
-    public void setResult(List<String> result) {
-        this.result = result;
-    }
 
     public CourseStore() throws StoreException
     {
-        /*try{
+        try{
             connection = DBUtil.getExternalConnection();
             connection.setAutoCommit(false);
             complete = false;
         } catch (SQLException e)
         {
             throw new StoreException(e);
-        }*/
+        }
     }
-    public void setCompleteFalse()
-    {
-        complete = false;
-    }
-    public void completeDone()
-    {
-        complete = true;
-    }
+
     public Connection makeConnection() throws StoreException
     {
         try{
             connection = DBUtil.getExternalConnection();
             connection.setAutoCommit(false);
-            setCompleteFalse();
+            complete = false;
             return connection;
         } catch (SQLException e)
         {
@@ -74,7 +58,7 @@ public class CourseStore implements Closeable {
             }
             resultSet.close();
             preparedStatement.close();
-            completeDone();
+            complete = true;
             close();
             return result;
         }
