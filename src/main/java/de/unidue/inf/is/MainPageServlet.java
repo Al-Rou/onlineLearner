@@ -14,14 +14,17 @@ import java.util.List;
 public class MainPageServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    private static List<String> showCoursesInMainPage = new ArrayList<>();
     private static CourseStore courseStore = new CourseStore();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException{
-        showCoursesInMainPage = courseStore.showCourse();
-        request.setAttribute("mycourse", showCoursesInMainPage);
+        if (!courseStore.showCourse().isEmpty()) {
+            request.setAttribute("mycourse", courseStore.showCourse());
+        }
+        else {
+            request.setAttribute("mycourse", "There is no course available at all!");
+        }
         request.getRequestDispatcher("/mainPage.ftl").forward(request, response);
     }
 }

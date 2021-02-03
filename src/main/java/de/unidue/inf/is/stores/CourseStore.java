@@ -41,21 +41,22 @@ public class CourseStore implements Closeable {
             throw new StoreException(e);
         }
     }
-    public List<String> showCourse() throws StoreException {
+    public List<Course> showCourse() throws StoreException {
         makeConnection();
         try {
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("select name from dbp151.kurs");
+                    .prepareStatement("select name, ersteller, freieplaetze from dbp151.kurs");
             ResultSet resultSet = preparedStatement.executeQuery();
-            List<String> result = new ArrayList<>();
+            List<Course> result = new ArrayList<>();
             while (resultSet.next())
             {
-                result.add(resultSet.getString(1));
+                result.add(new Course(resultSet.getString(1), resultSet.getInt(2),
+                        resultSet.getInt(3)));
             }
-            if (result.isEmpty())
+            /*if (result.isEmpty())
             {
                 result.add("There is no course for you!");
-            }
+            }*/
             resultSet.close();
             preparedStatement.close();
             complete = true;

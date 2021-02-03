@@ -16,6 +16,11 @@ public class Course {
         this.freiePlaetze = freiePlaetze;
         this.ersteller = ersteller;
     }
+    public Course(String name, int ersteller, int freiePlaetze) {
+        this.name = name;
+        this.freiePlaetze = freiePlaetze;
+        this.ersteller = ersteller;
+    }
 
     public int getkID() {
         return kID;
