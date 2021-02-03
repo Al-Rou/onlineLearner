@@ -7,10 +7,10 @@
     <h1>My Courses:</h1>
     <br/>
     <div>
-        <#list myowncourse as course>
-            <li>Title: ${course.name}</li>
-            <li>Producer: ${course.ersteller}</li>
-            <li>Free Seats: ${course.freiePlaetze}</li>
+        <#list myowncourse as owncourse>
+            <li>Title: ${owncourse.name}</li>
+            <li>Producer: ${owncourse.bNummer}</li>
+            <li>Free Seats: ${owncourse.email}</li>
             <li>***********************************</li>
         </#list>
     </div>

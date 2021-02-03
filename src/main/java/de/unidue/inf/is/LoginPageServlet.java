@@ -26,7 +26,8 @@ public class LoginPageServlet extends HttpServlet {
         throws ServletException, IOException
     {
         String user = request.getParameter("username");
-        if (!loginStore.userAuthenticated(user))
+        DBUtil.theUser = user;
+        /*if (!loginStore.userAuthenticated(user))
         {
             errorMessage += "User Authentication Failed! Try again or stop messing around!!";
             doGet(request, response);
@@ -36,6 +37,6 @@ public class LoginPageServlet extends HttpServlet {
             DBUtil.theUser = user;
             MainPageServlet mainPageServlet = new MainPageServlet();
             mainPageServlet.doGet(request, response);
-        }
+        }*/
     }
 }
