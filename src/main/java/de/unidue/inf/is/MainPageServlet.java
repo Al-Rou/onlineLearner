@@ -1,6 +1,7 @@
 package de.unidue.inf.is;
 
 import de.unidue.inf.is.domain.Course;
+import de.unidue.inf.is.domain.User;
 import de.unidue.inf.is.stores.CourseStore;
 import de.unidue.inf.is.stores.LoginStore;
 import de.unidue.inf.is.utils.DBUtil;
@@ -24,7 +25,15 @@ public class MainPageServlet extends HttpServlet {
             throws ServletException, IOException{
         if (!courseStore.showCourse().isEmpty()) {
             request.setAttribute("mycourse", courseStore.showCourse());
-            request.setAttribute("myowncourse", loginStore.userAuthenticated(DBUtil.theUser));
+            if (!loginStore.userAuthenticated(DBUtil.theUser).isEmpty()) {
+                request.setAttribute("myowncourse", loginStore.userAuthenticated(DBUtil.theUser));
+            }
+            else
+            {
+                List<User> kosUser = new ArrayList<>();
+                kosUser.add(new User(65, "kos@kos.com", "kosoo"));
+                request.setAttribute("myowncourse", kosUser);
+            }
         }
         else {
             request.setAttribute("mycourse", "There is no course available at all!");
