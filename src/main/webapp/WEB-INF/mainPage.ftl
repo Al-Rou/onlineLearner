@@ -4,11 +4,8 @@
 <body>
 <form name="user" action="view_main" method="post">
 
-
     <#list mycourse as course>
-        <tr>
-            <td>${course}</td>
-        </tr>
+        <br>${course}</br>
     </#list>
 
 </form>

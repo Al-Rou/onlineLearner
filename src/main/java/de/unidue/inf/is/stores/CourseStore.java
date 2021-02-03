@@ -1,5 +1,6 @@
 package de.unidue.inf.is.stores;
 
+import de.unidue.inf.is.domain.Course;
 import de.unidue.inf.is.domain.User;
 import de.unidue.inf.is.utils.DBUtil;
 
@@ -25,23 +26,31 @@ public class CourseStore implements Closeable {
         this.result = result;
     }
 
-    /*public CourseStore() throws StoreException
+    public CourseStore() throws StoreException
     {
-        try{
+        /*try{
             connection = DBUtil.getExternalConnection();
             connection.setAutoCommit(false);
             complete = false;
         } catch (SQLException e)
         {
             throw new StoreException(e);
-        }
-    }*/
+        }*/
+    }
+    public void setCompleteFalse()
+    {
+        complete = false;
+    }
+    public void completeDone()
+    {
+        complete = true;
+    }
     public Connection makeConnection() throws StoreException
     {
         try{
             connection = DBUtil.getExternalConnection();
             connection.setAutoCommit(false);
-            complete = false;
+            setCompleteFalse();
             return connection;
         } catch (SQLException e)
         {
@@ -49,15 +58,15 @@ public class CourseStore implements Closeable {
         }
     }
     public List<String> showCourse() throws StoreException {
+        makeConnection();
         try {
-            makeConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("select name from kurs");
+                    .prepareStatement("select name from dbp151.kurs");
             ResultSet resultSet = preparedStatement.executeQuery();
             List<String> result = new ArrayList<>();
-            if (resultSet.next())
+            while (resultSet.next())
             {
-                result.add(resultSet.getString("name"));
+                result.add(resultSet.getString(1));
             }
             if (result.isEmpty())
             {
@@ -65,7 +74,7 @@ public class CourseStore implements Closeable {
             }
             resultSet.close();
             preparedStatement.close();
-            complete = true;
+            completeDone();
             close();
             return result;
         }
