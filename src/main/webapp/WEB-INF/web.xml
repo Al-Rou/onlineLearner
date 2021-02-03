@@ -59,6 +59,16 @@
 	</servlet-mapping>
 
 	<servlet>
+		<servlet-name>loginPage_servlet</servlet-name>
+		<servlet-class>de.unidue.inf.is.LoginPageServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>loginPage_servlet</servlet-name>
+		<url-pattern>/login</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
 		<servlet-name>mainPage_servlet</servlet-name>
 		<servlet-class>de.unidue.inf.is.MainPageServlet</servlet-class>
 	</servlet>

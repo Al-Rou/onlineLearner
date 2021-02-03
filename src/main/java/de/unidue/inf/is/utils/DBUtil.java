@@ -14,6 +14,8 @@ import java.util.Properties;
 
 public final class DBUtil {
 
+    public static String theUser = "";
+
     private DBUtil() {
     }
 
