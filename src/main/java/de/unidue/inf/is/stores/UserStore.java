@@ -26,7 +26,10 @@ public final class UserStore implements Closeable {
             throw new StoreException(e);
         }
     }
-
+    public void setCompleteFalse()
+    {
+        complete = false;
+    }
 
     public void addUser(User userToAdd) throws StoreException {
         try {

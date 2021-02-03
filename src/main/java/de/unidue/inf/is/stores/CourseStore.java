@@ -7,6 +7,7 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,27 +30,38 @@ public class CourseStore implements Closeable {
         try{
             connection = DBUtil.getExternalConnection();
             connection.setAutoCommit(false);
+            complete = false;
         } catch (SQLException e)
         {
             throw new StoreException(e);
         }
     }
 
-    public void showCourse() throws StoreException {
+    public List<String> showCourse() throws StoreException {
         try {
             PreparedStatement preparedStatement = connection
                     .prepareStatement("select name from kurs");
-            preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<String> result = new ArrayList<>();
+            if (resultSet.next())
+            {
+                result.add(resultSet.getString(1));
+            }
+            if (result.isEmpty())
+            {
+                result.add("There is no course for you!");
+            }
+            resultSet.close();
+            preparedStatement.close();
+            complete = true;
+            close();
+            return result;
         }
-        catch (SQLException e) {
+        catch (SQLException | IOException e) {
             throw new StoreException(e);
         }
     }
 
-    public void complete()
-    {
-        complete = true;
-    }
     @Override
     public void close() throws IOException {
         if (connection != null) {
