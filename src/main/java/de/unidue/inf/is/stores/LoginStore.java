@@ -29,7 +29,7 @@ public class LoginStore implements Closeable {
         }
     }
 
-    public List<User> userAuthenticated(String email) throws StoreException
+    public boolean userAuthenticated(String email) throws StoreException
     {
         makeConnection();
         boolean answer = false;
@@ -44,15 +44,15 @@ public class LoginStore implements Closeable {
                 result.add(new User(resultSet.getInt(1), resultSet.getString(2),
                         resultSet.getString(3)));
             }
-            /*if (result != null)
+            if (!result.isEmpty())
             {
                 answer = true;
-            }*/
+            }
             resultSet.close();
             preparedStatement.close();
             complete = true;
             close();
-            return result;
+            return answer;
         } catch (SQLException | IOException e)
         {
             throw new StoreException(e);

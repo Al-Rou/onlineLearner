@@ -25,7 +25,7 @@ public class MainPageServlet extends HttpServlet {
             throws ServletException, IOException{
         if (!courseStore.showCourse().isEmpty()) {
             request.setAttribute("mycourse", courseStore.showCourse());
-            if (!loginStore.userAuthenticated(DBUtil.theUser).isEmpty()) {
+            if (loginStore.userAuthenticated(DBUtil.theUser)) {
                 request.setAttribute("myowncourse", loginStore.userAuthenticated(DBUtil.theUser));
             }
             else
