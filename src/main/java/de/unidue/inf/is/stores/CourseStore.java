@@ -25,7 +25,7 @@ public class CourseStore implements Closeable {
         this.result = result;
     }
 
-    public CourseStore() throws StoreException
+    /*public CourseStore() throws StoreException
     {
         try{
             connection = DBUtil.getExternalConnection();
@@ -35,17 +35,29 @@ public class CourseStore implements Closeable {
         {
             throw new StoreException(e);
         }
+    }*/
+    public Connection makeConnection() throws StoreException
+    {
+        try{
+            connection = DBUtil.getExternalConnection();
+            connection.setAutoCommit(false);
+            complete = false;
+            return connection;
+        } catch (SQLException e)
+        {
+            throw new StoreException(e);
+        }
     }
-
     public List<String> showCourse() throws StoreException {
         try {
+            makeConnection();
             PreparedStatement preparedStatement = connection
                     .prepareStatement("select name from kurs");
             ResultSet resultSet = preparedStatement.executeQuery();
             List<String> result = new ArrayList<>();
             if (resultSet.next())
             {
-                result.add(resultSet.getString(1));
+                result.add(resultSet.getString("name"));
             }
             if (result.isEmpty())
             {
