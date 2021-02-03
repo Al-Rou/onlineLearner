@@ -31,7 +31,6 @@ public class MainPageServlet extends HttpServlet {
             else
             {
                 List<User> kosUser = new ArrayList<>();
-                kosUser.add(new User(65, "kos@kos.com", "kosoo"));
                 request.setAttribute("myowncourse", kosUser);
             }
         }
