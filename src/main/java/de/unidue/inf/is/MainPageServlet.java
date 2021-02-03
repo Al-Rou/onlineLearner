@@ -11,10 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainPageServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+    private static List<String> showCoursesInMainPage = new ArrayList<>();
+    private static CourseStore courseStore = new CourseStore();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        //request.getAttribute("mycourse", CourseStore.getResult);
+        showCoursesInMainPage = courseStore.showCourse();
+        request.setAttribute("mycourse", showCoursesInMainPage);
         request.getRequestDispatcher("/mainPage.ftl").forward(request, response);
     }
 }
