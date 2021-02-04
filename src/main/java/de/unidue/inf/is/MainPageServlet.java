@@ -32,9 +32,7 @@ public class MainPageServlet extends HttpServlet {
                 if (!courseStore.showCourse().isEmpty()) {
                     request.setAttribute("mycourse", courseStore.showCourse());
                     List<Integer> listOfCourseIDs = new ArrayList<>();
-                    List<User> list = new ArrayList<>();
-                    list = userStore.fetchBNummerFromEmail(DBUtil.theUser);
-                    listOfCourseIDs = registrationStore.fetchCourseIDFromUserID(list.get(0).getbNummer());
+                    listOfCourseIDs = registrationStore.fetchCourseIDFromUserID(userStore.fetchBNummerFromEmail(DBUtil.theUser));
                     request.setAttribute("myowncourse", courseStore.showMyOwnCourses(listOfCourseIDs));
                 }
                 else {

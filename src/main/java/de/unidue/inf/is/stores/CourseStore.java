@@ -17,17 +17,6 @@ public class CourseStore implements Closeable {
     private Connection connection;
     private boolean complete;
 
-    /*public CourseStore() throws StoreException
-    {
-        try{
-            connection = DBUtil.getExternalConnection();
-            connection.setAutoCommit(false);
-            complete = false;
-        } catch (SQLException e)
-        {
-            throw new StoreException(e);
-        }
-    }*/
 
     public Connection makeConnection() throws StoreException
     {
@@ -53,10 +42,6 @@ public class CourseStore implements Closeable {
                 result.add(new Course(resultSet.getString(1), resultSet.getInt(2),
                         resultSet.getInt(3)));
             }
-            /*if (result.isEmpty())
-            {
-                result.add("There is no course for you!");
-            }*/
             resultSet.close();
             preparedStatement.close();
             complete = true;

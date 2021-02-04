@@ -26,7 +26,6 @@ public class LoginPageServlet extends HttpServlet {
         throws ServletException, IOException
     {
         String user = request.getParameter("username");
-        //DBUtil.theUser = user;
         if (loginStore.userAuthenticated(user).isEmpty())
         {
             errorMessage += "User Authentication Failed! Try again or stop messing around!!";
