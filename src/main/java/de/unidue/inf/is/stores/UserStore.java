@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import de.unidue.inf.is.domain.User;
 import de.unidue.inf.is.utils.DBUtil;
@@ -30,13 +32,20 @@ public final class UserStore implements Closeable {
         }
     }
 
-    public Integer fetchBNummerFromEmail(String email) throws StoreException {
+    public int fetchBNummerFromEmail(String email) throws StoreException {
         try {
             PreparedStatement preparedStatement = connection
-                            .prepareStatement("select bnummer from dbp151.benutzer where email=?");
+                            .prepareStatement("select * from dbp151.benutzer where email=?");
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
-            Integer result = new Integer(resultSet.getInt(1));
+            List<User> listRes = new ArrayList<>();
+            int result;
+            while (resultSet.next())
+            {
+                listRes.add(new User(resultSet.getInt(1),
+                        resultSet.getString(2), resultSet.getString(3)));
+            }
+            result = listRes.get(0).getbNummer();
             resultSet.close();
             preparedStatement.close();
             complete = true;
