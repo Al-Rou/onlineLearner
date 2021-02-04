@@ -23,21 +23,24 @@ public class MainPageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException{
-        if (!courseStore.showCourse().isEmpty()) {
-            request.setAttribute("mycourse", courseStore.showCourse());
+
             if (!loginStore.userAuthenticated(DBUtil.theUser).isEmpty()) {
-                request.setAttribute("myowncourse", loginStore.userAuthenticated(DBUtil.theUser));
+                if (!courseStore.showCourse().isEmpty()) {
+                    request.setAttribute("mycourse", courseStore.showCourse());
+                    request.setAttribute("myowncourse", loginStore.userAuthenticated(DBUtil.theUser));
+                }
+                else {
+                    request.setAttribute("mycourse", "There is no course available at all!");
+                    request.setAttribute("myowncourse", "There is no course available at all!");
+                }
             }
             else
             {
                 List<User> kosUser = new ArrayList<>();
                 request.setAttribute("myowncourse", kosUser);
+                List<Course> kosCourse = new ArrayList<>();
+                request.setAttribute("mycourse", kosCourse);
             }
-        }
-        else {
-            request.setAttribute("mycourse", "There is no course available at all!");
-            request.setAttribute("myowncourse", "There is no course available at all!");
-        }
         request.getRequestDispatcher("/mainPage.ftl").forward(request, response);
     }
 }
