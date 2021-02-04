@@ -32,25 +32,25 @@ public final class UserStore implements Closeable {
         }
     }
 
-    public int fetchBNummerFromEmail(String email) throws StoreException {
+    public List<User> fetchBNummerFromEmail(String email) throws StoreException {
+        makeConnection();
         try {
             PreparedStatement preparedStatement = connection
                             .prepareStatement("select * from dbp151.benutzer where email=?");
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
             List<User> listRes = new ArrayList<>();
-            int result;
             while (resultSet.next())
             {
                 listRes.add(new User(resultSet.getInt(1),
                         resultSet.getString(2), resultSet.getString(3)));
             }
-            result = listRes.get(0).getbNummer();
+            //result = listRes.get(0).getbNummer();
             resultSet.close();
             preparedStatement.close();
             complete = true;
             close();
-            return result;
+            return listRes;
         } catch (SQLException | IOException e) {
             throw new StoreException(e);
         }
