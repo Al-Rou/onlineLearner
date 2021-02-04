@@ -4,6 +4,7 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import de.unidue.inf.is.domain.User;
@@ -17,38 +18,34 @@ public final class UserStore implements Closeable {
     private boolean complete;
 
 
-    public UserStore() throws StoreException {
+    public Connection makeConnection() throws StoreException {
         try {
             connection = DBUtil.getExternalConnection();
             connection.setAutoCommit(false);
+            complete = false;
+            return connection;
         }
         catch (SQLException e) {
             throw new StoreException(e);
         }
     }
-    public void setCompleteFalse()
-    {
-        complete = false;
-    }
 
-    /*public void addUser(User userToAdd) throws StoreException {
+    public Integer fetchBNummerFromEmail(String email) throws StoreException {
         try {
             PreparedStatement preparedStatement = connection
-                            .prepareStatement("insert into user (firstname, lastname) values (?, ?)");
-            preparedStatement.setString(1, userToAdd.getFirstname());
-            preparedStatement.setString(2, userToAdd.getLastname());
-            preparedStatement.executeUpdate();
-        }
-        catch (SQLException e) {
+                            .prepareStatement("select bnummer from dbp151.benutzer where email=?");
+            preparedStatement.setString(1, email);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            Integer result = new Integer(resultSet.getInt(1));
+            resultSet.close();
+            preparedStatement.close();
+            complete = true;
+            close();
+            return result;
+        } catch (SQLException | IOException e) {
             throw new StoreException(e);
         }
-    }*/
-
-
-    public void complete() {
-        complete = true;
     }
-
 
     @Override
     public void close() throws IOException {

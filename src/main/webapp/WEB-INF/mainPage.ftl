@@ -9,8 +9,8 @@
     <div>
         <#list myowncourse as owncourse>
             <li>Title: ${owncourse.name}</li>
-            <li>Producer: ${owncourse.bNummer}</li>
-            <li>Free Seats: ${owncourse.email}</li>
+            <li>Producer: ${owncourse.ersteller}</li>
+            <li>Free Seats: ${owncourse.freiePlaetze}</li>
             <li>***********************************</li>
         </#list>
     </div>

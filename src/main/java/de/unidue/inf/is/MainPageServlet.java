@@ -4,6 +4,8 @@ import de.unidue.inf.is.domain.Course;
 import de.unidue.inf.is.domain.User;
 import de.unidue.inf.is.stores.CourseStore;
 import de.unidue.inf.is.stores.LoginStore;
+import de.unidue.inf.is.stores.RegistrationStore;
+import de.unidue.inf.is.stores.UserStore;
 import de.unidue.inf.is.utils.DBUtil;
 
 import javax.servlet.ServletException;
@@ -19,6 +21,8 @@ public class MainPageServlet extends HttpServlet {
 
     private static CourseStore courseStore = new CourseStore();
     private static LoginStore loginStore = new LoginStore();
+    private static RegistrationStore registrationStore = new RegistrationStore();
+    private static UserStore userStore = new UserStore();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -27,7 +31,9 @@ public class MainPageServlet extends HttpServlet {
             if (!loginStore.userAuthenticated(DBUtil.theUser).isEmpty()) {
                 if (!courseStore.showCourse().isEmpty()) {
                     request.setAttribute("mycourse", courseStore.showCourse());
-                    request.setAttribute("myowncourse", loginStore.userAuthenticated(DBUtil.theUser));
+                    List<Integer> listOfCourseIDs = new ArrayList<>();
+                    listOfCourseIDs = registrationStore.fetchCourseIDFromUserID(2);
+                    request.setAttribute("myowncourse", courseStore.showMyOwnCourses(listOfCourseIDs));
                 }
                 else {
                     request.setAttribute("mycourse", "There is no course available at all!");
