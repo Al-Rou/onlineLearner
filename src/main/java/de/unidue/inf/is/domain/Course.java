@@ -16,10 +16,11 @@ public class Course {
         this.freiePlaetze = freiePlaetze;
         this.ersteller = ersteller;
     }
-    public Course(String name, int ersteller, int freiePlaetze) {
+    public Course(int kID, String name, int ersteller, int freiePlaetze) {
         this.name = name;
         this.freiePlaetze = freiePlaetze;
         this.ersteller = ersteller;
+        this.kID = kID;
     }
 
     public int getkID() {

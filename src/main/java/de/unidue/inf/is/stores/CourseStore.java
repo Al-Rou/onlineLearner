@@ -39,7 +39,7 @@ public class CourseStore implements Closeable {
             List<Course> result = new ArrayList<>();
             while (resultSet.next())
             {
-                result.add(new Course(resultSet.getString(1), resultSet.getInt(2),
+                result.add(new Course(resultSet.getInt("kid"), resultSet.getString(1), resultSet.getInt(2),
                         resultSet.getInt(3)));
             }
             resultSet.close();
@@ -64,7 +64,7 @@ public class CourseStore implements Closeable {
                     preparedStatement.setInt(1, courseIDs.get(i));
                     ResultSet resultSet = preparedStatement.executeQuery();
                     while (resultSet.next()) {
-                        result.add(new Course(resultSet.getString("name"),
+                        result.add(new Course(resultSet.getInt("kid"), resultSet.getString("name"),
                                 resultSet.getInt("ersteller"), resultSet.getInt("freiePlaetze")));
                     }
                     resultSet.close();
