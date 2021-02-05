@@ -45,7 +45,18 @@ public class MainPageServlet extends HttpServlet {
                     request.setAttribute("mycourse", answerList);
                     List<Integer> listOfCourseIDs = new ArrayList<>();
                     listOfCourseIDs = registrationStore.fetchCourseIDFromUserID(userStore.fetchBNummerFromEmail(DBUtil.theUser));
-                    request.setAttribute("myowncourse", courseStore.showMyOwnCourses(listOfCourseIDs));
+                    List<Course> listOfMyOwnCourses = new ArrayList<>();
+                    listOfMyOwnCourses = courseStore.showMyOwnCourses(listOfCourseIDs);
+                    List<CourseWithProducersName> answerListForMe = new ArrayList<>();
+                    for(int k=0; k < listOfMyOwnCourses.size(); k++)
+                    {
+                        answerListForMe.add(new CourseWithProducersName(listOfMyOwnCourses.get(k).getkID(),
+                                listOfMyOwnCourses.get(k).getName(),
+                                userStore.fetchNameFromBNummer(listOfMyOwnCourses.get(k).getErsteller()),
+                                listOfMyOwnCourses.get(k).getFreiePlaetze()));
+                    }
+                    //request.setAttribute("myowncourse", courseStore.showMyOwnCourses(listOfCourseIDs));
+                    request.setAttribute("myowncourse", answerListForMe);
                 }
                 else {
                     request.setAttribute("mycourse", "There is no course available at all!");
