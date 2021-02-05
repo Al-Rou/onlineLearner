@@ -39,8 +39,8 @@ public class CourseStore implements Closeable {
             List<Course> result = new ArrayList<>();
             while (resultSet.next())
             {
-                result.add(new Course(resultSet.getInt("kid"), resultSet.getString(1), resultSet.getInt(2),
-                        resultSet.getInt(3)));
+                result.add(new Course(resultSet.getInt(1), resultSet.getString(2), resultSet.getInt(3),
+                        resultSet.getInt(4)));
             }
             resultSet.close();
             preparedStatement.close();
