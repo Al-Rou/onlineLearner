@@ -11,7 +11,7 @@
             <li>Title:&nbsp;<a href="/view_course?kid=${owncourse.kID}">${owncourse.name}</a></li>
             <li>Producer: ${owncourse.ersteller}</li>
             <li>Free Seats: ${owncourse.freiePlaetze}</li>
-            <li>***********************************</li>
+            <h3>===================================</h3>
         </#list>
     </div>
     <br/>
@@ -22,7 +22,7 @@
         <li>Title:&nbsp;<a href="/view_course?kid=${course.kID}">${course.name}</a></li>
         <li>Producer: ${course.ersteller}</li>
         <li>Free Seats: ${course.freiePlaetze}</li>
-        <li>***********************************</li>
+        <h3>===================================</h3>
     </#list>
     </div>
 
