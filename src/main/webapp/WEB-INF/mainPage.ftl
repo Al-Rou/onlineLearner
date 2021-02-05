@@ -9,7 +9,7 @@
     <div>
         <#list myowncourse as owncourse>
             <li>Title:&nbsp;<a href="/view_course?kid=${owncourse.kID}">${owncourse.name}</a></li>
-            <li>Producer: ${owncourse.ersteller}</li>
+            <li>Producer: ${owncourse.erstellersName}</li>
             <li>Free Seats: ${owncourse.freiePlaetze}</li>
             <h3>===================================</h3>
         </#list>
