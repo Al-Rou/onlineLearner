@@ -59,13 +59,23 @@
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>mainPage_servlet</servlet-name>
-		<servlet-class>de.unidue.inf.is.MainPageServlet</servlet-class>
-	</servlet>
+	<servlet-name>mainPage_servlet</servlet-name>
+	<servlet-class>de.unidue.inf.is.MainPageServlet</servlet-class>
+</servlet>
 
 	<servlet-mapping>
 		<servlet-name>mainPage_servlet</servlet-name>
 		<url-pattern>/view_main</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>createCourse_servlet</servlet-name>
+		<servlet-class>de.unidue.inf.is.CreateCourseServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>createCourse_servlet</servlet-name>
+		<url-pattern>/new_course</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>

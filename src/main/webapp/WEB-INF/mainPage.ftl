@@ -27,5 +27,6 @@
     </div>
 
 </form>
+<a href="/new_course"><button>Create a course</button></a>
 </body>
 </html>
