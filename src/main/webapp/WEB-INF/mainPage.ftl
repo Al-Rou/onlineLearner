@@ -20,7 +20,7 @@
     <div>
     <#list mycourse as course>
         <li>Title:&nbsp;<a href="/view_course?kid=${course.kID}">${course.name}</a></li>
-        <li>Producer: ${course.ersteller}</li>
+        <li>Producer: ${course.erstellersName}</li>
         <li>Free Seats: ${course.freiePlaetze}</li>
         <h3>===================================</h3>
     </#list>

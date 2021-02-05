@@ -28,7 +28,7 @@ public class LoginPageServlet extends HttpServlet {
         String user = request.getParameter("username");
         if (loginStore.userAuthenticated(user).isEmpty())
         {
-            errorMessage += "User Authentication Failed! Try again or stop messing around!!";
+            errorMessage += "User Authentication Failed! Sign up or stop messing around!!";
             doGet(request, response);
         }
         else

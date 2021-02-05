@@ -1,6 +1,7 @@
 package de.unidue.inf.is;
 
 import de.unidue.inf.is.domain.Course;
+import de.unidue.inf.is.domain.CourseWithProducersName;
 import de.unidue.inf.is.domain.User;
 import de.unidue.inf.is.stores.CourseStore;
 import de.unidue.inf.is.stores.LoginStore;
@@ -30,7 +31,18 @@ public class MainPageServlet extends HttpServlet {
 
             if (!loginStore.userAuthenticated(DBUtil.theUser).isEmpty()) {
                 if (!courseStore.showCourse().isEmpty()) {
-                    request.setAttribute("mycourse", courseStore.showCourse());
+                    List<Course> listOfCourses = new ArrayList<>();
+                    listOfCourses = courseStore.showCourse();
+                    List<CourseWithProducersName> answerList = new ArrayList<>();
+                    for(int j=0; j < listOfCourses.size(); j++)
+                    {
+                        answerList.add(new CourseWithProducersName(listOfCourses.get(j).getkID(),
+                                listOfCourses.get(j).getName(),
+                                userStore.fetchNameFromBNummer(listOfCourses.get(j).getErsteller()),
+                                listOfCourses.get(j).getFreiePlaetze()));
+                    }
+                    //request.setAttribute("mycourse", courseStore.showCourse());
+                    request.setAttribute("mycourse", answerList);
                     List<Integer> listOfCourseIDs = new ArrayList<>();
                     listOfCourseIDs = registrationStore.fetchCourseIDFromUserID(userStore.fetchBNummerFromEmail(DBUtil.theUser));
                     request.setAttribute("myowncourse", courseStore.showMyOwnCourses(listOfCourseIDs));

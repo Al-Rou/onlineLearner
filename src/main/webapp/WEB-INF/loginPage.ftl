@@ -11,7 +11,7 @@
         <h3>${error}</h3><br/>
         Enter your email:
         <input type="text" name="username"/><br/>
-        <input type="submit" value="login" /><br/>
+        <input type="submit" value="login" />&nbsp;<a href="/signup"><button>Sign up now!</button></a>
     </div>
 </form>
 

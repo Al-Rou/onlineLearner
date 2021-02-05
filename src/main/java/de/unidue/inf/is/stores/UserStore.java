@@ -54,6 +54,29 @@ public final class UserStore implements Closeable {
             throw new StoreException(e);
         }
     }
+    public String fetchNameFromBNummer(int bnummer) throws StoreException
+    {
+        makeConnection();
+        try {
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("select name from dbp151.benutzer where bnummer=?");
+            preparedStatement.setInt(1, bnummer);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<String> result = new ArrayList<>();
+            while (resultSet.next()) {
+                result.add(resultSet.getString(1));
+            }
+            String answer = result.get(0);
+            resultSet.close();
+            preparedStatement.close();
+            complete = true;
+            close();
+            return answer;
+        } catch (SQLException | IOException e)
+        {
+            throw new StoreException(e);
+        }
+    }
 
     @Override
     public void close() throws IOException {
