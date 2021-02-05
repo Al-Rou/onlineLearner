@@ -9,8 +9,11 @@
 <form name="user" action="new_course" method="post">
     Name: <input type="text" name="titel"/> <br/>
     Registration Password: <input type="text" name="pass"/><br/>
-    Number of free seats: <input type="number" name="number"/><br/>
-    Description: <input type="text" name="des"/><br/>
+    <label for="seats">Number of free seats:</label>
+    <input type="number" id="seats" name="seats" step="1" min="0" max="100"><br/>
+    Description: <input type="textarea" name="des"/><br/>
+    <label for="seats">Number of free seats:</label>
+    <input type="number" id="seats" name="seats" step="1" min="0" max="100"><br/>
 
     <input type="submit" value="create"/>
 </form>
