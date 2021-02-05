@@ -34,7 +34,7 @@ public class CourseStore implements Closeable {
         makeConnection();
         try {
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("select name, ersteller, freieplaetze from dbp151.kurs");
+                    .prepareStatement("select kid, name, ersteller, freieplaetze from dbp151.kurs");
             ResultSet resultSet = preparedStatement.executeQuery();
             List<Course> result = new ArrayList<>();
             while (resultSet.next())
