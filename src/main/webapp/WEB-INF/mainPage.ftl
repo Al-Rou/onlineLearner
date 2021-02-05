@@ -8,7 +8,7 @@
     <br/>
     <div>
         <#list myowncourse as owncourse>
-            <li>Title: ${owncourse.name}</li>
+            <li>Title:&nbsp;<a href="/view_course?kid=${owncourse.kID}">${owncourse.name}</a></li>
             <li>Producer: ${owncourse.ersteller}</li>
             <li>Free Seats: ${owncourse.freiePlaetze}</li>
             <li>***********************************</li>
@@ -19,7 +19,7 @@
     <br/>
     <div>
     <#list mycourse as course>
-        <li>Title:<a href="/view_course?kid=${course.kID}">${course.name}</a></li>
+        <li>Title:&nbsp;<a href="/view_course?kid=${course.kID}">${course.name}</a></li>
         <li>Producer: ${course.ersteller}</li>
         <li>Free Seats: ${course.freiePlaetze}</li>
         <li>***********************************</li>
