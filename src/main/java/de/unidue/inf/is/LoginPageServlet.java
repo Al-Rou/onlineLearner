@@ -18,7 +18,6 @@ public class LoginPageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
-        //DBUtil.theUser = "";
         request.setAttribute("error", errorMessage);
         request.getRequestDispatcher("/loginPage.ftl").forward(request, response);
     }
