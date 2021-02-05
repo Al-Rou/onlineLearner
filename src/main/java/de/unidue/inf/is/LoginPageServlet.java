@@ -18,6 +18,7 @@ public class LoginPageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
+        //DBUtil.theUser = "";
         request.setAttribute("error", errorMessage);
         request.getRequestDispatcher("/loginPage.ftl").forward(request, response);
     }
@@ -28,7 +29,9 @@ public class LoginPageServlet extends HttpServlet {
         String user = request.getParameter("username");
         if (loginStore.userAuthenticated(user).isEmpty())
         {
+            errorMessage = "";
             errorMessage += "User Authentication Failed! Sign up or stop messing around!!";
+            DBUtil.theUser = "";
             doGet(request, response);
         }
         else
