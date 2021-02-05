@@ -11,7 +11,7 @@
     Registration Password: <input type="text" name="pass"/><br/>
     <label for="seats">Number of free seats:</label>
     <input type="number" id="seats" name="seats" step="1" min="0" max="100"><br/>
-    Description: <input type="textarea" name="des"/><br/>
+    Description: <textarea name="descrip" rows="10" cols="40"></textarea><br/>
 
     <input type="submit" value="create"/>
 </form>
