@@ -25,14 +25,21 @@ public class CreateCourseServlet extends HttpServlet {
         String newName = request.getParameter("titel");
         String newPass = request.getParameter("pass");
         String newFreeSeats = request.getParameter("seats");
+        int newFreeSeatsInt = 0;
         if(!newFreeSeats.isEmpty()) {
-            int newFreeSeatsInt = Integer.parseInt(newFreeSeats);
+            newFreeSeatsInt = Integer.parseInt(newFreeSeats);
         }
         String newDescrip = request.getParameter("descrip");
         if ((newName.length()==0) || (newName.length()>50))
         {
             errorMessage = "";
-            errorMessage += "The entered name is either longer than 50 characters or empty";
+            errorMessage += "Error: The entered name is either longer than 50 characters or empty!";
+            doGet(request, response);
+        }
+        if ((newFreeSeats.isEmpty()) || (newFreeSeatsInt > 100))
+        {
+            errorMessage = "";
+            errorMessage += "Error: The entered number of free seats cannot be empty or bigger than 100!";
             doGet(request, response);
         }
     }
