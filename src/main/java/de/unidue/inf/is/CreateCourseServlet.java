@@ -42,5 +42,11 @@ public class CreateCourseServlet extends HttpServlet {
             errorMessage += "Error: The entered number of free seats cannot be empty or bigger than 100!";
             doGet(request, response);
         }
+        if (newDescrip.isEmpty())
+        {
+            errorMessage = "";
+            errorMessage += "Error: The discription cannot remain empty!";
+            doGet(request, response);
+        }
     }
 }
