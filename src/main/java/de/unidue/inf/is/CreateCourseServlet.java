@@ -25,7 +25,9 @@ public class CreateCourseServlet extends HttpServlet {
         String newName = request.getParameter("titel");
         String newPass = request.getParameter("pass");
         String newFreeSeats = request.getParameter("seats");
-        int newFreeSeatsInt = Integer.parseInt(newFreeSeats);
+        if(!newFreeSeats.isEmpty()) {
+            int newFreeSeatsInt = Integer.parseInt(newFreeSeats);
+        }
         String newDescrip = request.getParameter("descrip");
         if ((newName.length()==0) || (newName.length()>50))
         {
