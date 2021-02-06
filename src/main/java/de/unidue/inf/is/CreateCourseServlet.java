@@ -1,5 +1,9 @@
 package de.unidue.inf.is;
 
+import de.unidue.inf.is.domain.Course;
+import de.unidue.inf.is.stores.UserStore;
+import de.unidue.inf.is.utils.DBUtil;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +13,7 @@ import java.io.IOException;
 public class CreateCourseServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private String errorMessage = "";
+    private static UserStore userStore = new UserStore();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,
@@ -48,5 +53,8 @@ public class CreateCourseServlet extends HttpServlet {
             errorMessage += "Error: The discription cannot remain empty!";
             doGet(request, response);
         }
+
+        Course newCourse = new Course(newName, newDescrip, newPass, newFreeSeatsInt,
+                userStore.fetchBNummerFromEmail(DBUtil.theUser));
     }
 }
