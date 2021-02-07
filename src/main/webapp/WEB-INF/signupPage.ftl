@@ -13,9 +13,10 @@
         <input type="text" name="username"/><br/>
         Enter your name:
         <input type="text" name="name"/><br/>
-        <input type="submit" value="sign up" />&nbsp;<a href="/"><button>Login</button></a>
+        <input type="submit" value="sign up" />
     </div>
 </form>
+<a href="/"><button>Login</button></a>
 
 </body>
 </html>
