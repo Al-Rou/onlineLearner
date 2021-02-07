@@ -79,6 +79,16 @@
 	</servlet-mapping>
 
 	<servlet>
+		<servlet-name>details_servlet</servlet-name>
+		<servlet-class>de.unidue.inf.is.DetailsServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>details_servlet</servlet-name>
+		<url-pattern>/view_course</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
 		<servlet-name>createCourse_servlet</servlet-name>
 		<servlet-class>de.unidue.inf.is.CreateCourseServlet</servlet-class>
 	</servlet>
