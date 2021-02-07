@@ -60,8 +60,8 @@ public class AufgabeStore implements Closeable {
 
                 while (resultSet1.next())
                 {
-                    result2.add(new HandIn(resultSet1.getInt("bnummer"), fetchTextFromAbgabeNummer(resultSet1.getInt("aid")),
-                            fetchNameFromAufgabeNummer(resultSet1.getInt("anummer")), resultSet1.getInt("kid")));
+                    result2.add(new HandIn(resultSet1.getInt("bnummer"), resultSet1.getInt("aid"),
+                            resultSet1.getInt("anummer"), resultSet1.getInt("kid")));
                 }
                 resultSet1.close();
                 preparedStatement1.close();

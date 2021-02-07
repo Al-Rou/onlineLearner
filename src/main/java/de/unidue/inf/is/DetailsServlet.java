@@ -1,9 +1,6 @@
 package de.unidue.inf.is;
 
-import de.unidue.inf.is.domain.Course;
-import de.unidue.inf.is.domain.CourseWithProducersName;
-import de.unidue.inf.is.domain.HandIn;
-import de.unidue.inf.is.domain.Task;
+import de.unidue.inf.is.domain.*;
 import de.unidue.inf.is.stores.AufgabeStore;
 import de.unidue.inf.is.stores.CourseStore;
 import de.unidue.inf.is.stores.RegistrationStore;
@@ -34,6 +31,7 @@ public class DetailsServlet extends HttpServlet {
         List<CourseWithProducersName> list3 = new ArrayList<>();
         List<CourseWithProducersName> list33 = new ArrayList<>();
         List<HandIn> myTasks = new ArrayList<>();
+        List<HandInToShow> myTasksToShow = new ArrayList<>();
         String aufgabenTitle = "";
         String title = "";
         List<Integer> myOwnCourses = new ArrayList<>();
@@ -52,8 +50,13 @@ public class DetailsServlet extends HttpServlet {
                     aufgabenTitle += "List of Tasks";
                     title += "Task";
                     myTasks = aufgabeStore.fetchTasksFromCourseID(intCourseID);
+                    for(int k=0; k < myTasks.size(); k++)
+                    {
+                        myTasksToShow.add(new HandInToShow(aufgabeStore.fetchNameFromAufgabeNummer(myTasks.get(k).getaNummer()),
+                                aufgabeStore.fetchTextFromAbgabeNummer(myTasks.get(k).getaID())));
+                    }
                     request.setAttribute("title", title);
-                    request.setAttribute("owntask", myTasks);
+                    request.setAttribute("owntask", myTasksToShow);
                     request.setAttribute("course", list3);
                     request.setAttribute("aufgaben", aufgabenTitle);
                     request.setAttribute("owncourse", list33);
@@ -69,7 +72,7 @@ public class DetailsServlet extends HttpServlet {
                         list2.get(i).getBeschreibungsText()));
             }
             request.setAttribute("title", title);
-            request.setAttribute("owntask", myTasks);
+            request.setAttribute("owntask", myTasksToShow);
             request.setAttribute("course", list3);
             request.setAttribute("aufgaben", aufgabenTitle);
             request.setAttribute("owncourse", list33);
@@ -79,7 +82,7 @@ public class DetailsServlet extends HttpServlet {
         {
             aufgabenTitle += "Access is denied! Login first!";
             request.setAttribute("title", title);
-            request.setAttribute("owntask", myTasks);
+            request.setAttribute("owntask", myTasksToShow);
             request.setAttribute("course", list3);
             request.setAttribute("aufgaben", aufgabenTitle);
             request.setAttribute("owncourse", list33);

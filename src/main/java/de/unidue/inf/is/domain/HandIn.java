@@ -2,14 +2,14 @@ package de.unidue.inf.is.domain;
 
 public class HandIn {
     private int bNummer;
-    private String abgabeText;
-    private String aName;
+    private int aNummer;
+    private int aID;
     private int kID;
 
-    public HandIn(int bNummer, String abgabeText, String aName, int kID) {
+    public HandIn(int bNummer, int aNummer, int aID, int kID) {
         this.bNummer = bNummer;
-        this.abgabeText = abgabeText;
-        this.aName = aName;
+        this.aNummer = aNummer;
+        this.aID = aID;
         this.kID = kID;
     }
 
@@ -21,20 +21,20 @@ public class HandIn {
         this.bNummer = bNummer;
     }
 
-    public String getAbgabeText() {
-        return abgabeText;
+    public int getaNummer() {
+        return aNummer;
     }
 
-    public void setAbgabeText(String aID) {
-        this.abgabeText = aID;
+    public void setaNummer(int aNummer) {
+        this.aNummer = aNummer;
     }
 
-    public String getaName() {
-        return aName;
+    public int getaID() {
+        return aID;
     }
 
-    public void setaName(String aNummer) {
-        this.aName = aNummer;
+    public void setaID(int aID) {
+        this.aID = aID;
     }
 
     public int getkID() {
