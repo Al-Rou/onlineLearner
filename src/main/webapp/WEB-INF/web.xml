@@ -69,6 +69,16 @@
 	</servlet-mapping>
 
 	<servlet>
+		<servlet-name>signup_servlet</servlet-name>
+		<servlet-class>de.unidue.inf.is.SignupServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>signup_servlet</servlet-name>
+		<url-pattern>/signup</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
 		<servlet-name>createCourse_servlet</servlet-name>
 		<servlet-class>de.unidue.inf.is.CreateCourseServlet</servlet-class>
 	</servlet>

@@ -6,14 +6,14 @@
 <h1>Welcome</h1>
 
 
-<form name="user" action="/" method="post">
+<form name="user" action="/signup" method="post">
     <div>
         <h3>${error}</h3><br/>
         Enter your email:
         <input type="text" name="username"/><br/>
         Enter your name:
         <input type="text" name="name"/><br/>
-        <input type="submit" value="login" />&nbsp;<a href="/signup"><button>Sign up now!</button></a>
+        <input type="submit" value="sign up" />&nbsp;<a href="/"><button>Login</button></a>
     </div>
 </form>
 
