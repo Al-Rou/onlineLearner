@@ -41,7 +41,6 @@ public class MainPageServlet extends HttpServlet {
                                 userStore.fetchNameFromBNummer(listOfCourses.get(j).getErsteller()),
                                 listOfCourses.get(j).getFreiePlaetze()));
                     }
-                    //request.setAttribute("mycourse", courseStore.showCourse());
                     request.setAttribute("mycourse", answerList);
                     List<Integer> listOfCourseIDs = new ArrayList<>();
                     listOfCourseIDs = registrationStore.fetchCourseIDFromUserID(userStore.fetchBNummerFromEmail(DBUtil.theUser));
