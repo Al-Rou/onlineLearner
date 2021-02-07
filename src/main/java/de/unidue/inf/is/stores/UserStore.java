@@ -77,6 +77,25 @@ public final class UserStore implements Closeable {
             throw new StoreException(e);
         }
     }
+    public boolean addNewUser(User newUser) throws StoreException
+    {
+        makeConnection();
+        try {
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("insert into dbp151.benutzer (email, name) values (?,?)");
+            preparedStatement.setString(1, newUser.getEmail());
+            preparedStatement.setString(2, newUser.getName());
+            preparedStatement.executeUpdate();
+
+            preparedStatement.close();
+            complete = true;
+            close();
+            return complete;
+        } catch (SQLException | IOException e)
+        {
+            throw new StoreException(e);
+        }
+    }
 
     @Override
     public void close() throws IOException {

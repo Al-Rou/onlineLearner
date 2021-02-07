@@ -1,5 +1,7 @@
 package de.unidue.inf.is;
 
+import de.unidue.inf.is.domain.User;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -35,5 +37,12 @@ public class SignupServlet extends HttpServlet {
             doGet(request, response);
         }
         String newName = request.getParameter("name");
+        if (newName.isEmpty())
+        {
+            errorMessage = "";
+            errorMessage += "Error: You must enter your name!";
+            doGet(request, response);
+        }
+        User newUserToAdd = new User(newEmail, newName);
     }
 }

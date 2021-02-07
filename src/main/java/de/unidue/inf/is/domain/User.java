@@ -6,10 +6,9 @@ public final class User {
     private String email;
     private int bNummer;
 
-    public User(int bNummer, String email, String name) {
+    public User(String email, String name) {
         this.name = name;
         this.email = email;
-        this.bNummer = bNummer;
     }
 
     public String getName() {
