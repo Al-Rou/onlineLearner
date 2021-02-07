@@ -7,7 +7,7 @@
 <#list course as details>
     <h2>${details.name}</h2>
     <br/>
-    <h3>Producer: ${details.ersteller}</h3>
+    <h3>Producer: ${details.erstellersName}</h3>
     <br/>
     Description: ${details.beschreibungstext}
     <br/>

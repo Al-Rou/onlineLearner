@@ -31,7 +31,8 @@ public class DetailsServlet extends HttpServlet {
         for (int i=0; i < list2.size(); i++)
         {
             list3.add(new CourseWithProducersName(list2.get(i).getkID(),list2.get(i).getName(),
-                    userStore.fetchNameFromBNummer(list2.get(i).getErsteller()), list2.get(i).getFreiePlaetze()));
+                    userStore.fetchNameFromBNummer(list2.get(i).getErsteller()), list2.get(i).getFreiePlaetze(),
+                    list2.get(i).getBeschreibungsText()));
         }
         //List<CourseWithProducersName> courseWithProducersNames = new ArrayList<>();
         request.setAttribute("course", list3);

@@ -4,13 +4,29 @@ public class CourseWithProducersName {
     private int kID;
     private String name;
     private String erstellersName;
-    int freiePlaetze;
+    private int freiePlaetze;
+    private String beschreibungstext;
 
     public CourseWithProducersName(int kID, String name, String erstellersName, int freiePlaetze) {
         this.name = name;
         this.freiePlaetze = freiePlaetze;
         this.erstellersName = erstellersName;
         this.kID = kID;
+    }
+    public CourseWithProducersName(int kID, String name, String erstellersName, int freiePlaetze, String beschreibungstext) {
+        this.name = name;
+        this.freiePlaetze = freiePlaetze;
+        this.erstellersName = erstellersName;
+        this.kID = kID;
+        this.beschreibungstext = beschreibungstext;
+    }
+
+    public String getBeschreibungstext() {
+        return beschreibungstext;
+    }
+
+    public void setBeschreibungstext(String beschreibungstext) {
+        this.beschreibungstext = beschreibungstext;
     }
 
     public int getkID() {
