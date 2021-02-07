@@ -4,11 +4,31 @@ public class HandInToShow {
     private String name;
     private String text;
     private String grade;
+    private int aNummer;
+    private int kID;
 
-    public HandInToShow(String name, String text, String grade) {
+    public HandInToShow(String name, String text, String grade, int kID, int aNummer) {
         this.name = name;
         this.text = text;
         this.grade = grade;
+        this.kID = kID;
+        this.aNummer = aNummer;
+    }
+
+    public int getaNummer() {
+        return aNummer;
+    }
+
+    public void setaNummer(int aNummer) {
+        this.aNummer = aNummer;
+    }
+
+    public int getkID() {
+        return kID;
+    }
+
+    public void setkID(int kID) {
+        this.kID = kID;
     }
 
     public String getGrade() {

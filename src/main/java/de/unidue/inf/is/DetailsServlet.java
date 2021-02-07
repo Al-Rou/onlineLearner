@@ -59,13 +59,15 @@ public class DetailsServlet extends HttpServlet {
                         if(aufgabeStore.fetchGrade(myTasks.get(k).getaID(), myTasks.get(k).getbNummer()) != 0) {
                             myTasksToShow.add(new HandInToShow(aufgabeStore.fetchNameFromAufgabeNummer(myTasks.get(k).getaNummer()),
                                     aufgabeStore.fetchTextFromAbgabeNummer(myTasks.get(k).getaID()),
-                                    Integer.toString(aufgabeStore.fetchGrade(myTasks.get(k).getaID(), myTasks.get(k).getbNummer()))));
+                                    Integer.toString(aufgabeStore.fetchGrade(myTasks.get(k).getaID(), myTasks.get(k).getbNummer())),
+                                    myTasks.get(k).getkID(), myTasks.get(k).getaNummer()));
                         }
                         else
                         {
                             myTasksToShow.add(new HandInToShow(aufgabeStore.fetchNameFromAufgabeNummer(myTasks.get(k).getaNummer()),
                                     aufgabeStore.fetchTextFromAbgabeNummer(myTasks.get(k).getaID()),
-                                    "Noch keine Bewertung"));
+                                    "Noch keine Bewertung",
+                                    myTasks.get(k).getkID(), myTasks.get(k).getaNummer()));
                         }
                     }
                     request.setAttribute("title", title);

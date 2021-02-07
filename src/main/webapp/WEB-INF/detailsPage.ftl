@@ -40,6 +40,6 @@
         </tr>
         </#list>
     </table>
-
+<a href="/"><button>Back to login</button></a>
 </body>
 </html>
