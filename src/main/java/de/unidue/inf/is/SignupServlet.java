@@ -17,4 +17,23 @@ public class SignupServlet extends HttpServlet {
         request.setAttribute("error", errorMessage);
         request.getRequestDispatcher("/signupPage.ftl").forward(request, response);
     }
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException
+    {
+        String newEmail = request.getParameter("username");
+        if (newEmail.isEmpty())
+        {
+            errorMessage = "";
+            errorMessage += "Error: You must enter your email!";
+            doGet(request, response);
+        }
+        if (!(newEmail.contains("@gmail.com")) && !(newEmail.contains("@yahoo.com")))
+        {
+            errorMessage = "";
+            errorMessage += "Error: Either yahoo or gmail accounts are accepted for now!";
+            doGet(request, response);
+        }
+        String newName = request.getParameter("name");
+    }
 }
