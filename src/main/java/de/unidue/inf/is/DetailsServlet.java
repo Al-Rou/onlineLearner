@@ -76,6 +76,7 @@ public class DetailsServlet extends HttpServlet {
         }
         else
         {
+            aufgabenTitle += "Access is denied! Login first!";
             request.setAttribute("title", title);
             request.setAttribute("owntask", myTasks);
             request.setAttribute("course", list3);
