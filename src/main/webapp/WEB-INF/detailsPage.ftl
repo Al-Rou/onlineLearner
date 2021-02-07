@@ -9,11 +9,9 @@
     <br/>
     <h3>Producer: ${details.erstellersName}</h3>
     <br/>
-    Description: ${details.beschreibungsText}
-    <br/>
     Number of Free Seats: ${details.freiePlaetze}
     <br/>
-    <a href="/new_enroll?kid=${details.kid}"><button>Register</button></a>
+    <a href="/new_enroll?kid=${details.kID}"><button>Register</button></a>
 
 </#list>
 </body>
