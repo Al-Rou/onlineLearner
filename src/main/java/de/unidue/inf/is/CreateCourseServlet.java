@@ -1,6 +1,7 @@
 package de.unidue.inf.is;
 
 import de.unidue.inf.is.domain.Course;
+import de.unidue.inf.is.stores.CourseStore;
 import de.unidue.inf.is.stores.UserStore;
 import de.unidue.inf.is.utils.DBUtil;
 
@@ -14,6 +15,7 @@ public class CreateCourseServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private String errorMessage = "";
     private static UserStore userStore = new UserStore();
+    private static CourseStore courseStore = new CourseStore();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,
@@ -56,5 +58,17 @@ public class CreateCourseServlet extends HttpServlet {
 
         Course newCourse = new Course(newName, newDescrip, newPass, newFreeSeatsInt,
                 userStore.fetchBNummerFromEmail(DBUtil.theUser));
+        if (courseStore.addNewCourse(newCourse))
+        {
+            errorMessage = "";
+            errorMessage += "Success: New course was successfully created!";
+            doGet(request, response);
+        }
+        else
+        {
+            errorMessage = "";
+            errorMessage += "Error: Something is wrong with database. Try later again!";
+            doGet(request, response);
+        }
     }
 }
