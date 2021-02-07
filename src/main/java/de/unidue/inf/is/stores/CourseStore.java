@@ -96,7 +96,13 @@ public class CourseStore implements Closeable {
             preparedStatement.executeUpdate();
             preparedStatement.close();
 
-
+            preparedStatement.close();
+            complete = true;
+            close();
+            return complete;
+        } catch (SQLException | IOException e)
+        {
+            throw new StoreException(e);
         }
     }
 
