@@ -36,6 +36,7 @@ public class LoginPageServlet extends HttpServlet {
         else
         {
             DBUtil.theUser = user;
+            errorMessage = "";
             MainPageServlet mainPageServlet = new MainPageServlet();
             mainPageServlet.doGet(request, response);
         }
