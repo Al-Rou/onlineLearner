@@ -56,9 +56,11 @@ public class SignupServlet extends HttpServlet {
         else {
             User newUserToAdd = new User(newEmail, newName);
             if (userStore.addNewUser(newUserToAdd)) {
+                LoginPageServlet loginPageServlet = new LoginPageServlet();
                 errorMessage = "";
-                errorMessage += "Success: Your account has been created!";
-                doGet(request, response);
+                loginPageServlet.setErrorMessage(errorMessage);
+                loginPageServlet.setErrorMessage("Success: Your account has been created!");
+                loginPageServlet.doGet(request, response);
             } else {
                 errorMessage = "";
                 errorMessage += "Error: Something is wrong with database! Try later again!";

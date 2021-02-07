@@ -14,6 +14,10 @@ public class LoginPageServlet extends HttpServlet {
     private String errorMessage = "";
     private static LoginStore loginStore = new LoginStore();
 
+    public void setErrorMessage(String error)
+    {
+        errorMessage = error;
+    }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
