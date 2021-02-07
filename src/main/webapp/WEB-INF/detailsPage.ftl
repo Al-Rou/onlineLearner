@@ -22,9 +22,12 @@
     <br/>
     Number of Free Seats: ${owndetails.freiePlaetze}
     <br/>
-    <a href="/new_enroll?kid=${owndetails.kID}"><button>Delete</button></a>
+    <a href="/delete?kid=${owndetails.kID}"><button>Delete</button></a>
+
+    ==================================================
 
 </#list>
+<h1>${aufgaben}</h1>
 
 </body>
 </html>

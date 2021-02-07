@@ -31,6 +31,7 @@ public class DetailsServlet extends HttpServlet {
         int intCourseID = Integer.parseInt(courseID);
         List<CourseWithProducersName> list3 = new ArrayList<>();
         List<CourseWithProducersName> list33 = new ArrayList<>();
+        String aufgabenTitle = "";
         for (int j=0; j < myOwnCourses.size(); j++)
         {
             if (myOwnCourses.get(j) == Integer.valueOf(intCourseID))
@@ -44,7 +45,9 @@ public class DetailsServlet extends HttpServlet {
                             userStore.fetchNameFromBNummer(list22.get(i).getErsteller()), list22.get(i).getFreiePlaetze(),
                             list22.get(i).getBeschreibungsText()));
                 }
+                aufgabenTitle += "List of Tasks";
                 request.setAttribute("course", list3);
+                request.setAttribute("aufgaben", aufgabenTitle);
                 request.setAttribute("owncourse", list33);
                 request.getRequestDispatcher("/detailsPage.ftl").forward(request, response);
             }
@@ -59,6 +62,7 @@ public class DetailsServlet extends HttpServlet {
                     list2.get(i).getBeschreibungsText()));
         }
         request.setAttribute("course", list3);
+        request.setAttribute("aufgaben", aufgabenTitle);
         request.setAttribute("owncourse", list33);
         request.getRequestDispatcher("/detailsPage.ftl").forward(request, response);
     }
