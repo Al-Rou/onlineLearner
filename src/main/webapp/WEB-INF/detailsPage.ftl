@@ -32,7 +32,7 @@
 
     <table class="datatable">
         <tr>
-            <th><h2>${title}</h2></th> <th><h2>${title}</h2></th>
+            <th><h2>${title}</h2></th> <th><h2>${titletwo}</h2></th>
         </tr>
         <#list owntask as ownauf>
         <tr>

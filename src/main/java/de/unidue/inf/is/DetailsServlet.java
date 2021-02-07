@@ -34,6 +34,7 @@ public class DetailsServlet extends HttpServlet {
         List<HandInToShow> myTasksToShow = new ArrayList<>();
         String aufgabenTitle = "";
         String title = "";
+        String titletwo = "";
         List<Integer> myOwnCourses = new ArrayList<>();
         if(!DBUtil.theUser.isEmpty()) {
             myOwnCourses = registrationStore.fetchCourseIDFromUserID(userStore.fetchBNummerFromEmail(DBUtil.theUser));
@@ -49,6 +50,7 @@ public class DetailsServlet extends HttpServlet {
                     }
                     aufgabenTitle += "List of Tasks";
                     title += "Task";
+                    titletwo += "My Delivery";
                     myTasks = aufgabeStore.fetchTasksFromCourseID(intCourseID);
                     for(int k=0; k < myTasks.size(); k++)
                     {
@@ -56,6 +58,7 @@ public class DetailsServlet extends HttpServlet {
                                 aufgabeStore.fetchTextFromAbgabeNummer(myTasks.get(k).getaID())));
                     }
                     request.setAttribute("title", title);
+                    request.setAttribute("titletwo", titletwo);
                     request.setAttribute("owntask", myTasksToShow);
                     request.setAttribute("course", list3);
                     request.setAttribute("aufgaben", aufgabenTitle);
@@ -72,6 +75,7 @@ public class DetailsServlet extends HttpServlet {
                         list2.get(i).getBeschreibungsText()));
             }
             request.setAttribute("title", title);
+            request.setAttribute("titletwo", titletwo);
             request.setAttribute("owntask", myTasksToShow);
             request.setAttribute("course", list3);
             request.setAttribute("aufgaben", aufgabenTitle);
@@ -82,6 +86,7 @@ public class DetailsServlet extends HttpServlet {
         {
             aufgabenTitle += "Access is denied! Login first!";
             request.setAttribute("title", title);
+            request.setAttribute("titletwo", titletwo);
             request.setAttribute("owntask", myTasksToShow);
             request.setAttribute("course", list3);
             request.setAttribute("aufgaben", aufgabenTitle);
