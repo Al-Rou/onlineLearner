@@ -5,7 +5,7 @@ public class CourseWithProducersName {
     private String name;
     private String erstellersName;
     private int freiePlaetze;
-    private String beschreibungstext;
+    private String beschreibungsText;
 
     public CourseWithProducersName(int kID, String name, String erstellersName, int freiePlaetze) {
         this.name = name;
@@ -18,15 +18,15 @@ public class CourseWithProducersName {
         this.freiePlaetze = freiePlaetze;
         this.erstellersName = erstellersName;
         this.kID = kID;
-        this.beschreibungstext = beschreibungstext;
+        this.beschreibungsText = beschreibungstext;
     }
 
     public String getBeschreibungstext() {
-        return beschreibungstext;
+        return beschreibungsText;
     }
 
     public void setBeschreibungstext(String beschreibungstext) {
-        this.beschreibungstext = beschreibungstext;
+        this.beschreibungsText = beschreibungstext;
     }
 
     public int getkID() {

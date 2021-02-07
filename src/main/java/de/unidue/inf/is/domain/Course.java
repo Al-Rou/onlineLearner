@@ -8,10 +8,10 @@ public class Course {
     private int freiePlaetze;
     private int ersteller;
 
-    public Course(String name, String beschreibungsText, String einschreibeSchluessel, int freiePlaetze, int ersteller) {
+    public Course(int kID, String name, String beschreibungsText, int freiePlaetze, int ersteller) {
+        this.kID = kID;
         this.name = name;
         this.beschreibungsText = beschreibungsText;
-        this.einschreibeSchluessel = einschreibeSchluessel;
         this.freiePlaetze = freiePlaetze;
         this.ersteller = ersteller;
     }

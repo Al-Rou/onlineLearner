@@ -9,7 +9,7 @@
     <br/>
     <h3>Producer: ${details.erstellersName}</h3>
     <br/>
-    Description: ${details.beschreibungstext}
+    Description: ${details.beschreibungsText}
     <br/>
     Number of Free Seats: ${details.freiePlaetze}
     <br/>
