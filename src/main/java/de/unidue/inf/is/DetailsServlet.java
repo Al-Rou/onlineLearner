@@ -2,6 +2,7 @@ package de.unidue.inf.is;
 
 import de.unidue.inf.is.domain.Course;
 import de.unidue.inf.is.domain.CourseWithProducersName;
+import de.unidue.inf.is.domain.HandIn;
 import de.unidue.inf.is.domain.Task;
 import de.unidue.inf.is.stores.AufgabeStore;
 import de.unidue.inf.is.stores.CourseStore;
@@ -32,7 +33,7 @@ public class DetailsServlet extends HttpServlet {
         int intCourseID = Integer.parseInt(courseID);
         List<CourseWithProducersName> list3 = new ArrayList<>();
         List<CourseWithProducersName> list33 = new ArrayList<>();
-        List<Task> myTasks = new ArrayList<>();
+        List<HandIn> myTasks = new ArrayList<>();
         String aufgabenTitle = "";
         String title = "";
         List<Integer> myOwnCourses = new ArrayList<>();

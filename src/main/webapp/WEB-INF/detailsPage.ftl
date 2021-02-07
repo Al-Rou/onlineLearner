@@ -28,9 +28,18 @@
 
 </#list>
 <h1>${aufgaben}</h1>
-<h2>${title}</h2>
-<#list owntask as ownauf>
-    <li>${ownauf.name}</li>
-</#list>
+
+
+    <table class="datatable">
+        <tr>
+            <th><h2>${title}</h2></th> <th><h2>${title}</h2></th>
+        </tr>
+        <#list owntask as ownauf>
+        <tr>
+            <td>${ownauf.aName}</td> <td>${ownauf.abgabeText}</td>
+        </tr>
+        </#list>
+    </table>
+
 </body>
 </html>
