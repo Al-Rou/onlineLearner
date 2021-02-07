@@ -37,6 +37,12 @@ public class CreateCourseServlet extends HttpServlet {
             newFreeSeatsInt = Integer.parseInt(newFreeSeats);
         }
         String newDescrip = request.getParameter("descrip");
+        if (DBUtil.theUser.isEmpty())
+        {
+            errorMessage = "";
+            errorMessage += "Access denied: You must login first as an authorized user!";
+            doGet(request, response);
+        }
         if ((newName.length()==0) || (newName.length()>50))
         {
             errorMessage = "";
