@@ -40,7 +40,7 @@ public class LoginStore implements Closeable {
             List<User> result = new ArrayList<>();
             while (resultSet.next())
             {
-                result.add(new User(resultSet.getInt(1), resultSet.getString(2),
+                result.add(new User(resultSet.getString(2),
                         resultSet.getString(3)));
             }
             resultSet.close();

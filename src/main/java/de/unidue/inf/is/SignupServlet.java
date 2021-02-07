@@ -1,6 +1,8 @@
 package de.unidue.inf.is;
 
 import de.unidue.inf.is.domain.User;
+import de.unidue.inf.is.stores.LoginStore;
+import de.unidue.inf.is.stores.UserStore;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +13,8 @@ import java.io.IOException;
 public class SignupServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private String errorMessage = "";
+    private static UserStore userStore = new UserStore();
+    private static LoginStore loginStore = new LoginStore();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,
@@ -36,6 +40,12 @@ public class SignupServlet extends HttpServlet {
             errorMessage += "Error: Either yahoo or gmail accounts are accepted for now!";
             doGet(request, response);
         }
+        if(!loginStore.userAuthenticated(newEmail).isEmpty())
+        {
+            errorMessage = "";
+            errorMessage += "Error: This email address is already used!";
+            doGet(request, response);
+        }
         String newName = request.getParameter("name");
         if (newName.isEmpty())
         {
@@ -43,6 +53,17 @@ public class SignupServlet extends HttpServlet {
             errorMessage += "Error: You must enter your name!";
             doGet(request, response);
         }
-        User newUserToAdd = new User(newEmail, newName);
+        else {
+            User newUserToAdd = new User(newEmail, newName);
+            if (userStore.addNewUser(newUserToAdd)) {
+                errorMessage = "";
+                errorMessage += "Success: Your account has been created!";
+                doGet(request, response);
+            } else {
+                errorMessage = "";
+                errorMessage += "Error: Something is wrong with database! Try later again!";
+                doGet(request, response);
+            }
+        }
     }
 }
