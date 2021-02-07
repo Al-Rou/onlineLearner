@@ -36,7 +36,7 @@
         </tr>
         <#list owntask as ownauf>
         <tr>
-            <td>${ownauf.aName}</td> <td>${ownauf.abgabeText}</td>
+            <td>${ownauf.name}</td> <td>${ownauf.text}</td>
         </tr>
         </#list>
     </table>
