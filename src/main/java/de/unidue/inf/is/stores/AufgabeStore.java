@@ -37,7 +37,7 @@ public class AufgabeStore implements Closeable {
         makeConnection();
         try {
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("select * from dbp151.aufgabe where kid=?");
+                    .prepareStatement("select * from dbp151.aufgabe where kid=? order by anummer asc");
             preparedStatement.setInt(1, kid);
             ResultSet resultSet = preparedStatement.executeQuery();
             List<Task> result1 = new ArrayList<>();
