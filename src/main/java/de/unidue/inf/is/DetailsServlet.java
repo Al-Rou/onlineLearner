@@ -28,8 +28,6 @@ public class DetailsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
-        List<Integer> myOwnCourses = new ArrayList<>();
-        myOwnCourses = registrationStore.fetchCourseIDFromUserID(userStore.fetchBNummerFromEmail(DBUtil.theUser));
         String courseID = request.getParameter("kid");
         int intCourseID = Integer.parseInt(courseID);
         List<CourseWithProducersName> list3 = new ArrayList<>();
@@ -37,44 +35,53 @@ public class DetailsServlet extends HttpServlet {
         List<Task> myTasks = new ArrayList<>();
         String aufgabenTitle = "";
         String title = "";
-        for (int j=0; j < myOwnCourses.size(); j++)
-        {
-            if (myOwnCourses.get(j) == Integer.valueOf(intCourseID))
-            {
-                List<Integer> list11 = new ArrayList<>();
-                list11.add(intCourseID);
-                List<Course> list22 = courseStore.showMyOwnCourses(list11);
-                for (int i=0; i < list22.size(); i++)
-                {
-                    list33.add(new CourseWithProducersName(list22.get(i).getkID(),list22.get(i).getName(),
-                            userStore.fetchNameFromBNummer(list22.get(i).getErsteller()), list22.get(i).getFreiePlaetze(),
-                            list22.get(i).getBeschreibungsText()));
+        List<Integer> myOwnCourses = new ArrayList<>();
+        if(!DBUtil.theUser.isEmpty()) {
+            myOwnCourses = registrationStore.fetchCourseIDFromUserID(userStore.fetchBNummerFromEmail(DBUtil.theUser));
+            for (int j = 0; j < myOwnCourses.size(); j++) {
+                if (myOwnCourses.get(j) == Integer.valueOf(intCourseID)) {
+                    List<Integer> list11 = new ArrayList<>();
+                    list11.add(intCourseID);
+                    List<Course> list22 = courseStore.showMyOwnCourses(list11);
+                    for (int i = 0; i < list22.size(); i++) {
+                        list33.add(new CourseWithProducersName(list22.get(i).getkID(), list22.get(i).getName(),
+                                userStore.fetchNameFromBNummer(list22.get(i).getErsteller()), list22.get(i).getFreiePlaetze(),
+                                list22.get(i).getBeschreibungsText()));
+                    }
+                    aufgabenTitle += "List of Tasks";
+                    title += "Task";
+                    myTasks = aufgabeStore.fetchTasksFromCourseID(intCourseID);
+                    request.setAttribute("title", title);
+                    request.setAttribute("owntask", myTasks);
+                    request.setAttribute("course", list3);
+                    request.setAttribute("aufgaben", aufgabenTitle);
+                    request.setAttribute("owncourse", list33);
+                    request.getRequestDispatcher("/detailsPage.ftl").forward(request, response);
                 }
-                aufgabenTitle += "List of Tasks";
-                title += "Task";
-                myTasks = aufgabeStore.fetchTasksFromCourseID(intCourseID);
-                request.setAttribute("title", title);
-                request.setAttribute("owntask", myTasks);
-                request.setAttribute("course", list3);
-                request.setAttribute("aufgaben", aufgabenTitle);
-                request.setAttribute("owncourse", list33);
-                request.getRequestDispatcher("/detailsPage.ftl").forward(request, response);
             }
+            List<Integer> list1 = new ArrayList<>();
+            list1.add(intCourseID);
+            List<Course> list2 = courseStore.showMyOwnCourses(list1);
+            for (int i = 0; i < list2.size(); i++) {
+                list3.add(new CourseWithProducersName(list2.get(i).getkID(), list2.get(i).getName(),
+                        userStore.fetchNameFromBNummer(list2.get(i).getErsteller()), list2.get(i).getFreiePlaetze(),
+                        list2.get(i).getBeschreibungsText()));
+            }
+            request.setAttribute("title", title);
+            request.setAttribute("owntask", myTasks);
+            request.setAttribute("course", list3);
+            request.setAttribute("aufgaben", aufgabenTitle);
+            request.setAttribute("owncourse", list33);
+            request.getRequestDispatcher("/detailsPage.ftl").forward(request, response);
         }
-        List<Integer> list1 = new ArrayList<>();
-        list1.add(intCourseID);
-        List<Course> list2 = courseStore.showMyOwnCourses(list1);
-        for (int i=0; i < list2.size(); i++)
+        else
         {
-            list3.add(new CourseWithProducersName(list2.get(i).getkID(),list2.get(i).getName(),
-                    userStore.fetchNameFromBNummer(list2.get(i).getErsteller()), list2.get(i).getFreiePlaetze(),
-                    list2.get(i).getBeschreibungsText()));
+            request.setAttribute("title", title);
+            request.setAttribute("owntask", myTasks);
+            request.setAttribute("course", list3);
+            request.setAttribute("aufgaben", aufgabenTitle);
+            request.setAttribute("owncourse", list33);
+            request.getRequestDispatcher("/detailsPage.ftl").forward(request, response);
         }
-        request.setAttribute("title", title);
-        request.setAttribute("owntask", myTasks);
-        request.setAttribute("course", list3);
-        request.setAttribute("aufgaben", aufgabenTitle);
-        request.setAttribute("owncourse", list33);
-        request.getRequestDispatcher("/detailsPage.ftl").forward(request, response);
     }
 }
