@@ -23,11 +23,14 @@
     Number of Free Seats: ${owndetails.freiePlaetze}
     <br/>
     <a href="/delete?kid=${owndetails.kID}"><button>Delete</button></a>
-
+    <br/>
     ==================================================
 
 </#list>
 <h1>${aufgaben}</h1>
-
+<#list owntask as ownauf>
+    <h2>${title}</h2><br/>
+    ${ownauf.name}
+</#list>
 </body>
 </html>

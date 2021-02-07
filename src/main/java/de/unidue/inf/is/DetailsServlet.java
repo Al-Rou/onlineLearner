@@ -2,6 +2,8 @@ package de.unidue.inf.is;
 
 import de.unidue.inf.is.domain.Course;
 import de.unidue.inf.is.domain.CourseWithProducersName;
+import de.unidue.inf.is.domain.Task;
+import de.unidue.inf.is.stores.AufgabeStore;
 import de.unidue.inf.is.stores.CourseStore;
 import de.unidue.inf.is.stores.RegistrationStore;
 import de.unidue.inf.is.stores.UserStore;
@@ -20,6 +22,7 @@ public class DetailsServlet extends HttpServlet {
     private static CourseStore courseStore = new CourseStore();
     private static UserStore userStore = new UserStore();
     private static RegistrationStore registrationStore = new RegistrationStore();
+    private static AufgabeStore aufgabeStore = new AufgabeStore();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -31,7 +34,9 @@ public class DetailsServlet extends HttpServlet {
         int intCourseID = Integer.parseInt(courseID);
         List<CourseWithProducersName> list3 = new ArrayList<>();
         List<CourseWithProducersName> list33 = new ArrayList<>();
+        List<Task> myTasks = new ArrayList<>();
         String aufgabenTitle = "";
+        String title = "";
         for (int j=0; j < myOwnCourses.size(); j++)
         {
             if (myOwnCourses.get(j) == Integer.valueOf(intCourseID))
@@ -46,6 +51,10 @@ public class DetailsServlet extends HttpServlet {
                             list22.get(i).getBeschreibungsText()));
                 }
                 aufgabenTitle += "List of Tasks";
+                title += "Task";
+                myTasks = aufgabeStore.fetchTasksFromCourseID(intCourseID);
+                request.setAttribute("title", title);
+                request.setAttribute("owntask", myTasks);
                 request.setAttribute("course", list3);
                 request.setAttribute("aufgaben", aufgabenTitle);
                 request.setAttribute("owncourse", list33);
@@ -61,6 +70,8 @@ public class DetailsServlet extends HttpServlet {
                     userStore.fetchNameFromBNummer(list2.get(i).getErsteller()), list2.get(i).getFreiePlaetze(),
                     list2.get(i).getBeschreibungsText()));
         }
+        request.setAttribute("title", title);
+        request.setAttribute("owntask", myTasks);
         request.setAttribute("course", list3);
         request.setAttribute("aufgaben", aufgabenTitle);
         request.setAttribute("owncourse", list33);
