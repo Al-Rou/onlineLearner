@@ -32,11 +32,11 @@
 
     <table class="datatable">
         <tr>
-            <th><h2>${title}</h2></th> <th><h2>${titletwo}</h2></th>
+            <th><h2>${title}</h2></th> <th><h2>${titletwo}</h2></th> <th><h2>${titlethree}</h2></th>
         </tr>
         <#list owntask as ownauf>
         <tr>
-            <td>${ownauf.name}</td> <td>${ownauf.text}</td>
+            <td>${ownauf.name}</td> <td>${ownauf.text}</td> <td>${ownauf.grade}</td>
         </tr>
         </#list>
     </table>

@@ -120,6 +120,30 @@ public class AufgabeStore implements Closeable {
             throw new StoreException(e);
         }
     }
+    public int fetchGrade(int aid, int bnummer) throws StoreException
+    {
+        makeConnection();
+        try {
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("select note from dbp151.bewerten where aid=? and bnummer=?");
+            preparedStatement.setInt(1, aid);
+            preparedStatement.setInt(2, bnummer);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            int result = 0;
+            while (resultSet.next())
+            {
+                result = resultSet.getInt(1);
+            }
+            resultSet.close();
+            preparedStatement.close();
+            complete = true;
+            close();
+            return result;
+        } catch (SQLException | IOException e)
+        {
+            throw new StoreException(e);
+        }
+    }
     @Override
     public void close() throws IOException
     {

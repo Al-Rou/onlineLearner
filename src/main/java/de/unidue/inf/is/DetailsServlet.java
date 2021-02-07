@@ -35,6 +35,7 @@ public class DetailsServlet extends HttpServlet {
         String aufgabenTitle = "";
         String title = "";
         String titletwo = "";
+        String titlethree = "";
         List<Integer> myOwnCourses = new ArrayList<>();
         if(!DBUtil.theUser.isEmpty()) {
             myOwnCourses = registrationStore.fetchCourseIDFromUserID(userStore.fetchBNummerFromEmail(DBUtil.theUser));
@@ -51,14 +52,25 @@ public class DetailsServlet extends HttpServlet {
                     aufgabenTitle += "List of Tasks";
                     title += "Task";
                     titletwo += "My Delivery";
+                    titlethree += "Grade";
                     myTasks = aufgabeStore.fetchTasksFromCourseID(intCourseID);
                     for(int k=0; k < myTasks.size(); k++)
                     {
-                        myTasksToShow.add(new HandInToShow(aufgabeStore.fetchNameFromAufgabeNummer(myTasks.get(k).getaNummer()),
-                                aufgabeStore.fetchTextFromAbgabeNummer(myTasks.get(k).getaID())));
+                        if(aufgabeStore.fetchGrade(myTasks.get(k).getaID(), myTasks.get(k).getbNummer()) != 0) {
+                            myTasksToShow.add(new HandInToShow(aufgabeStore.fetchNameFromAufgabeNummer(myTasks.get(k).getaNummer()),
+                                    aufgabeStore.fetchTextFromAbgabeNummer(myTasks.get(k).getaID()),
+                                    Integer.toString(aufgabeStore.fetchGrade(myTasks.get(k).getaID(), myTasks.get(k).getbNummer()))));
+                        }
+                        else
+                        {
+                            myTasksToShow.add(new HandInToShow(aufgabeStore.fetchNameFromAufgabeNummer(myTasks.get(k).getaNummer()),
+                                    aufgabeStore.fetchTextFromAbgabeNummer(myTasks.get(k).getaID()),
+                                    "Noch keine Bewertung"));
+                        }
                     }
                     request.setAttribute("title", title);
                     request.setAttribute("titletwo", titletwo);
+                    request.setAttribute("titlethree", titlethree);
                     request.setAttribute("owntask", myTasksToShow);
                     request.setAttribute("course", list3);
                     request.setAttribute("aufgaben", aufgabenTitle);
@@ -76,6 +88,7 @@ public class DetailsServlet extends HttpServlet {
             }
             request.setAttribute("title", title);
             request.setAttribute("titletwo", titletwo);
+            request.setAttribute("titlethree", titlethree);
             request.setAttribute("owntask", myTasksToShow);
             request.setAttribute("course", list3);
             request.setAttribute("aufgaben", aufgabenTitle);
@@ -87,6 +100,7 @@ public class DetailsServlet extends HttpServlet {
             aufgabenTitle += "Access is denied! Login first!";
             request.setAttribute("title", title);
             request.setAttribute("titletwo", titletwo);
+            request.setAttribute("titlethree", titlethree);
             request.setAttribute("owntask", myTasksToShow);
             request.setAttribute("course", list3);
             request.setAttribute("aufgaben", aufgabenTitle);
