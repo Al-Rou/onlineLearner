@@ -28,9 +28,9 @@
 
 </#list>
 <h1>${aufgaben}</h1>
+<h2>${title}</h2>
 <#list owntask as ownauf>
-    <h2>${title}</h2><br/>
-    ${ownauf.name}
+    <li>${ownauf.name}</li>
 </#list>
 </body>
 </html>
