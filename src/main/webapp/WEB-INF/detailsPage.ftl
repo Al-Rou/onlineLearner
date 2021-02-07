@@ -14,5 +14,17 @@
     <a href="/new_enroll?kid=${details.kID}"><button>Register</button></a>
 
 </#list>
+
+<#list owncourse as owndetails>
+    <h2>${owndetails.name}</h2>
+    <br/>
+    <h3>Producer: ${owndetails.erstellersName}</h3>
+    <br/>
+    Number of Free Seats: ${owndetails.freiePlaetze}
+    <br/>
+    <a href="/new_enroll?kid=${owndetails.kID}"><button>Delete</button></a>
+
+</#list>
+
 </body>
 </html>
