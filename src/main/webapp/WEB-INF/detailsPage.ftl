@@ -36,7 +36,7 @@
         </tr>
         <#list owntask as ownauf>
         <tr>
-            <td><a href="/new_assignment?kid=${ownauf.kID}&anummer=${ownauf.aNummer}">${ownauf.name}</a></td>
+            <td><a href="/new_assignment?kid=${ownauf.kID}&anummer=${ownauf.aNummer}">${ownauf.name}</a></td> <td>${ownauf.text}</td>
         </tr>
         </#list>
     </table>

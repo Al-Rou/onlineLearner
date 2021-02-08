@@ -15,6 +15,13 @@ public class HandInToShow {
         this.aNummer = aNummer;
     }
 
+    public HandInToShow(String name, String text, int aNummer, int kID) {
+        this.name = name;
+        this.text = text;
+        this.aNummer = aNummer;
+        this.kID = kID;
+    }
+
     public int getaNummer() {
         return aNummer;
     }

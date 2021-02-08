@@ -9,6 +9,9 @@ public class Delivery {
         this.abgabeText = abgabeText;
     }
 
+    public Delivery() {
+    }
+
     public int getaID() {
         return aID;
     }

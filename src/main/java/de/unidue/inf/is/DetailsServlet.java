@@ -1,10 +1,7 @@
 package de.unidue.inf.is;
 
 import de.unidue.inf.is.domain.*;
-import de.unidue.inf.is.stores.AufgabeStore;
-import de.unidue.inf.is.stores.CourseStore;
-import de.unidue.inf.is.stores.RegistrationStore;
-import de.unidue.inf.is.stores.UserStore;
+import de.unidue.inf.is.stores.*;
 import de.unidue.inf.is.utils.DBUtil;
 
 import javax.servlet.ServletException;
@@ -21,6 +18,7 @@ public class DetailsServlet extends HttpServlet {
     private static UserStore userStore = new UserStore();
     private static RegistrationStore registrationStore = new RegistrationStore();
     private static AufgabeStore aufgabeStore = new AufgabeStore();
+    private static EinreichenStore einreichenStore = new EinreichenStore();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -31,6 +29,7 @@ public class DetailsServlet extends HttpServlet {
         List<CourseWithProducersName> list3 = new ArrayList<>();
         List<CourseWithProducersName> list33 = new ArrayList<>();
         List<Task> myTasks = new ArrayList<>();
+        List<Delivery> myDeliveryList = new ArrayList<>();
         List<HandInToShow> myTasksToShow = new ArrayList<>();
         String aufgabenTitle = "";
         String title = "";
@@ -54,6 +53,26 @@ public class DetailsServlet extends HttpServlet {
                     titletwo += "My Delivery";
                     titlethree += "Grade";
                     myTasks = aufgabeStore.fetchTasksFromCourseID(intCourseID);
+                    for (int k=0; k < myTasks.size(); k++) {
+                        Delivery myDelivery = einreichenStore.fetchAbgabeTextFromAbgabeID(
+                                einreichenStore.fetchAbgabeID(userStore.fetchBNummerFromEmail(DBUtil.theUser),
+                                        myTasks.get(k).getkID(), myTasks.get(k).getaNummer()));
+                        myDeliveryList.add(myDelivery);
+                    }
+                    for (int k=0; k < myTasks.size(); k++)
+                    {
+                        if(!myDeliveryList.get(k).getAbgabeText().isEmpty()) {
+                            myTasksToShow.add(new HandInToShow(myTasks.get(k).getName(),
+                                    myDeliveryList.get(k).getAbgabeText(), myTasks.get(k).getaNummer(),
+                                    myTasks.get(k).getkID()));
+                        }
+                        else
+                        {
+                            myTasksToShow.add(new HandInToShow(myTasks.get(k).getName(),
+                                    "Keine Abgabe", myTasks.get(k).getaNummer(),
+                                    myTasks.get(k).getkID()));
+                        }
+                    }
                     /*for(int k=0; k < myTasks.size(); k++)
                     {
                         if(aufgabeStore.fetchGrade(myTasks.get(k).getaID()
@@ -78,7 +97,7 @@ public class DetailsServlet extends HttpServlet {
                     request.setAttribute("title", title);
                     request.setAttribute("titletwo", titletwo);
                     request.setAttribute("titlethree", titlethree);
-                    request.setAttribute("owntask", myTasks);
+                    request.setAttribute("owntask", myTasksToShow);
                     request.setAttribute("course", list3);
                     request.setAttribute("aufgaben", aufgabenTitle);
                     request.setAttribute("owncourse", list33);
@@ -96,7 +115,7 @@ public class DetailsServlet extends HttpServlet {
             request.setAttribute("title", title);
             request.setAttribute("titletwo", titletwo);
             request.setAttribute("titlethree", titlethree);
-            request.setAttribute("owntask", myTasks);
+            request.setAttribute("owntask", myTasksToShow);
             request.setAttribute("course", list3);
             request.setAttribute("aufgaben", aufgabenTitle);
             request.setAttribute("owncourse", list33);
@@ -108,7 +127,7 @@ public class DetailsServlet extends HttpServlet {
             request.setAttribute("title", title);
             request.setAttribute("titletwo", titletwo);
             request.setAttribute("titlethree", titlethree);
-            request.setAttribute("owntask", myTasks);
+            request.setAttribute("owntask", myTasksToShow);
             request.setAttribute("course", list3);
             request.setAttribute("aufgaben", aufgabenTitle);
             request.setAttribute("owncourse", list33);
