@@ -54,24 +54,24 @@ public class DetailsServlet extends HttpServlet {
                     titlethree += "Grade";
                     myTasks = aufgabeStore.fetchTasksFromCourseID(intCourseID);
                     for (int k=0; k < myTasks.size(); k++) {
-                        Delivery myDelivery = einreichenStore.fetchAbgabeTextFromAbgabeID(
-                                einreichenStore.fetchAbgabeID(userStore.fetchBNummerFromEmail(DBUtil.theUser),
-                                        myTasks.get(k).getkID(), myTasks.get(k).getaNummer()));
-                        myDeliveryList.add(myDelivery);
-                    }
-                    for (int k=0; k < myTasks.size(); k++)
-                    {
-                        if(!myDeliveryList.get(k).getAbgabeText().isEmpty()) {
-                            myTasksToShow.add(new HandInToShow(myTasks.get(k).getName(),
-                                    myDeliveryList.get(k).getAbgabeText(), myTasks.get(k).getaNummer(),
-                                    myTasks.get(k).getkID()));
+                        if (einreichenStore.fetchAbgabeID(userStore.fetchBNummerFromEmail(DBUtil.theUser),
+                                myTasks.get(k).getkID(), myTasks.get(k).getaNummer()) != 0) {
+                            Delivery myDelivery = einreichenStore.fetchAbgabeTextFromAbgabeID(
+                                    einreichenStore.fetchAbgabeID(userStore.fetchBNummerFromEmail(DBUtil.theUser),
+                                            myTasks.get(k).getkID(), myTasks.get(k).getaNummer()));
+                            myDeliveryList.add(myDelivery);
                         }
                         else
                         {
-                            myTasksToShow.add(new HandInToShow(myTasks.get(k).getName(),
-                                    "Keine Abgabe", myTasks.get(k).getaNummer(),
-                                    myTasks.get(k).getkID()));
+                            Delivery delivery = new Delivery(0, "Keine Abgabe");
+                            myDeliveryList.add(delivery);
                         }
+                    }
+                    for (int k=0; k < myTasks.size(); k++)
+                    {
+                            myTasksToShow.add(new HandInToShow(myTasks.get(k).getName(),
+                                    myDeliveryList.get(k).getAbgabeText(), myTasks.get(k).getaNummer(),
+                                    myTasks.get(k).getkID()));
                     }
                     /*for(int k=0; k < myTasks.size(); k++)
                     {
