@@ -31,7 +31,7 @@ public class AufgabeStore implements Closeable {
         }
     }
 
-    public List<HandIn> fetchTasksFromCourseID(int kid) throws StoreException
+    public List<Task> fetchTasksFromCourseID(int kid) throws StoreException
     {
         int anumm = userStore.fetchBNummerFromEmail(DBUtil.theUser);
         makeConnection();
@@ -48,7 +48,7 @@ public class AufgabeStore implements Closeable {
             }
             resultSet.close();
             preparedStatement.close();
-            List<HandIn> result2 = new ArrayList<>();
+            /*List<HandIn> result2 = new ArrayList<>();
             for(int i=0; i < result1.size(); i++)
             {
                 PreparedStatement preparedStatement1 = connection
@@ -65,10 +65,10 @@ public class AufgabeStore implements Closeable {
                 }
                 resultSet1.close();
                 preparedStatement1.close();
-            }
+            }*/
             complete = true;
             close();
-            return result2;
+            return result1;
         }catch (SQLException | IOException e)
         {
             throw new StoreException(e);
@@ -120,14 +120,14 @@ public class AufgabeStore implements Closeable {
             throw new StoreException(e);
         }
     }
-    public int fetchGrade(int aid, int bnummer) throws StoreException
+    public int fetchGrade(int aid) throws StoreException
     {
         makeConnection();
         try {
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("select avg(note) from dbp151.bewerten where aid=? and bnummer=?");
+                    .prepareStatement("select avg(note) from dbp151.bewerten where aid=?");
             preparedStatement.setInt(1, aid);
-            preparedStatement.setInt(2, bnummer);
+            //preparedStatement.setInt(2, bnummer);
             ResultSet resultSet = preparedStatement.executeQuery();
             int result = 0;
             while (resultSet.next())

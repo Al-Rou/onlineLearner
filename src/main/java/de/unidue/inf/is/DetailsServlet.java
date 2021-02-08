@@ -30,7 +30,7 @@ public class DetailsServlet extends HttpServlet {
         int intCourseID = Integer.parseInt(courseID);
         List<CourseWithProducersName> list3 = new ArrayList<>();
         List<CourseWithProducersName> list33 = new ArrayList<>();
-        List<HandIn> myTasks = new ArrayList<>();
+        List<Task> myTasks = new ArrayList<>();
         List<HandInToShow> myTasksToShow = new ArrayList<>();
         String aufgabenTitle = "";
         String title = "";
@@ -54,12 +54,17 @@ public class DetailsServlet extends HttpServlet {
                     titletwo += "My Delivery";
                     titlethree += "Grade";
                     myTasks = aufgabeStore.fetchTasksFromCourseID(intCourseID);
-                    for(int k=0; k < myTasks.size(); k++)
+                    /*for(int k=0; k < myTasks.size(); k++)
                     {
-                        if(aufgabeStore.fetchGrade(myTasks.get(k).getaID(), myTasks.get(k).getbNummer()) != 0) {
+                        if(aufgabeStore.fetchGrade(myTasks.get(k).getaID()
+                                //, myTasks.get(k).getbNummer()
+                        ) != 0)
+                        {
                             myTasksToShow.add(new HandInToShow(aufgabeStore.fetchNameFromAufgabeNummer(myTasks.get(k).getaNummer()),
                                     aufgabeStore.fetchTextFromAbgabeNummer(myTasks.get(k).getaID()),
-                                    Integer.toString(aufgabeStore.fetchGrade(myTasks.get(k).getaID(), myTasks.get(k).getbNummer())),
+                                    Integer.toString(aufgabeStore.fetchGrade(myTasks.get(k).getaID()
+                                            //, myTasks.get(k).getbNummer()
+                                    )),
                                     myTasks.get(k).getkID(), myTasks.get(k).getaNummer()));
                         }
                         else
@@ -69,11 +74,11 @@ public class DetailsServlet extends HttpServlet {
                                     "Noch keine Bewertung",
                                     myTasks.get(k).getkID(), myTasks.get(k).getaNummer()));
                         }
-                    }
+                    }*/
                     request.setAttribute("title", title);
                     request.setAttribute("titletwo", titletwo);
                     request.setAttribute("titlethree", titlethree);
-                    request.setAttribute("owntask", myTasksToShow);
+                    request.setAttribute("owntask", myTasks);
                     request.setAttribute("course", list3);
                     request.setAttribute("aufgaben", aufgabenTitle);
                     request.setAttribute("owncourse", list33);
@@ -91,7 +96,7 @@ public class DetailsServlet extends HttpServlet {
             request.setAttribute("title", title);
             request.setAttribute("titletwo", titletwo);
             request.setAttribute("titlethree", titlethree);
-            request.setAttribute("owntask", myTasksToShow);
+            request.setAttribute("owntask", myTasks);
             request.setAttribute("course", list3);
             request.setAttribute("aufgaben", aufgabenTitle);
             request.setAttribute("owncourse", list33);
@@ -103,7 +108,7 @@ public class DetailsServlet extends HttpServlet {
             request.setAttribute("title", title);
             request.setAttribute("titletwo", titletwo);
             request.setAttribute("titlethree", titlethree);
-            request.setAttribute("owntask", myTasksToShow);
+            request.setAttribute("owntask", myTasks);
             request.setAttribute("course", list3);
             request.setAttribute("aufgaben", aufgabenTitle);
             request.setAttribute("owncourse", list33);

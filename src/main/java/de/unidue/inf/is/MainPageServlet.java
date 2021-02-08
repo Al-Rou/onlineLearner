@@ -56,7 +56,6 @@ public class MainPageServlet extends HttpServlet {
                                 userStore.fetchNameFromBNummer(listOfMyOwnCourses.get(k).getErsteller()),
                                 listOfMyOwnCourses.get(k).getFreiePlaetze()));
                     }
-                    //request.setAttribute("myowncourse", courseStore.showMyOwnCourses(listOfCourseIDs));
                     request.setAttribute("myowncourse", answerListForMe);
                 }
                 else {
