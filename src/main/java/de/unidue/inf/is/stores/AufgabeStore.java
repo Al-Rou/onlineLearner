@@ -48,24 +48,6 @@ public class AufgabeStore implements Closeable {
             }
             resultSet.close();
             preparedStatement.close();
-            /*List<HandIn> result2 = new ArrayList<>();
-            for(int i=0; i < result1.size(); i++)
-            {
-                PreparedStatement preparedStatement1 = connection
-                        .prepareStatement("select * from dbp151.einreichen where kid=? and bnummer=? and anummer=?");
-                preparedStatement1.setInt(1, kid);
-                preparedStatement1.setInt(2, anumm);
-                preparedStatement1.setInt(3, result1.get(i).getaNummer());
-                ResultSet resultSet1 = preparedStatement1.executeQuery();
-
-                while (resultSet1.next())
-                {
-                    result2.add(new HandIn(resultSet1.getInt("bnummer"), resultSet1.getInt("aid"),
-                            resultSet1.getInt("anummer"), resultSet1.getInt("kid")));
-                }
-                resultSet1.close();
-                preparedStatement1.close();
-            }*/
             complete = true;
             close();
             return result1;
@@ -120,7 +102,7 @@ public class AufgabeStore implements Closeable {
             throw new StoreException(e);
         }
     }
-    public int fetchGrade(int aid) throws StoreException
+    public String fetchGrade(int aid) throws StoreException
     {
         makeConnection();
         try {
@@ -134,11 +116,12 @@ public class AufgabeStore implements Closeable {
             {
                 result = resultSet.getInt(1);
             }
+            String finResult = Integer.toString(result);
             resultSet.close();
             preparedStatement.close();
             complete = true;
             close();
-            return result;
+            return finResult;
         } catch (SQLException | IOException e)
         {
             throw new StoreException(e);

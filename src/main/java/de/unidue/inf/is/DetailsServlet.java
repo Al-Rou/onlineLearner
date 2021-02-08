@@ -30,6 +30,7 @@ public class DetailsServlet extends HttpServlet {
         List<CourseWithProducersName> list33 = new ArrayList<>();
         List<Task> myTasks = new ArrayList<>();
         List<Delivery> myDeliveryList = new ArrayList<>();
+        List<String> myGradeList = new ArrayList<>();
         List<HandInToShow> myTasksToShow = new ArrayList<>();
         String aufgabenTitle = "";
         String title = "";
@@ -60,18 +61,21 @@ public class DetailsServlet extends HttpServlet {
                                     einreichenStore.fetchAbgabeID(userStore.fetchBNummerFromEmail(DBUtil.theUser),
                                             myTasks.get(k).getkID(), myTasks.get(k).getaNummer()));
                             myDeliveryList.add(myDelivery);
+                            myGradeList.add(aufgabeStore.fetchGrade(einreichenStore.fetchAbgabeID(userStore.fetchBNummerFromEmail(DBUtil.theUser),
+                                    myTasks.get(k).getkID(), myTasks.get(k).getaNummer())));
                         }
                         else
                         {
                             Delivery delivery = new Delivery(0, "Keine Abgabe");
                             myDeliveryList.add(delivery);
+                            myGradeList.add("Noch keine Bewertung");
                         }
                     }
                     for (int k=0; k < myTasks.size(); k++)
                     {
                             myTasksToShow.add(new HandInToShow(myTasks.get(k).getName(),
                                     myDeliveryList.get(k).getAbgabeText(), myTasks.get(k).getaNummer(),
-                                    myTasks.get(k).getkID()));
+                                    myTasks.get(k).getkID(), myGradeList.get(k)));
                     }
                     /*for(int k=0; k < myTasks.size(); k++)
                     {

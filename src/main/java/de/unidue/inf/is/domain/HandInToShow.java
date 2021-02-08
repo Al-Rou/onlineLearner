@@ -7,7 +7,7 @@ public class HandInToShow {
     private int aNummer;
     private int kID;
 
-    public HandInToShow(String name, String text, String grade, int kID, int aNummer) {
+    public HandInToShow(String name, String text, int aNummer, int kID, String grade) {
         this.name = name;
         this.text = text;
         this.grade = grade;
