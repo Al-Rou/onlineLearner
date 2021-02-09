@@ -31,7 +31,9 @@ public class CourseRegistrationServlet extends HttpServlet {
             errorMessage1 = "";
             passToCheck = "";
             String idToRegister = request.getParameter("kid");
-            idToRegisterInt = Integer.parseInt(idToRegister);
+            if(!idToRegister.isEmpty()) {
+                idToRegisterInt = Integer.parseInt(idToRegister);
+            }
             List<Integer> list = new ArrayList<>();
             list.add(idToRegisterInt);
             List<Course> listOfCourse = courseStore.showMyOwnCourses(list);
