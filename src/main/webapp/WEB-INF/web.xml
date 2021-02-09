@@ -97,6 +97,16 @@
 		<servlet-name>createCourse_servlet</servlet-name>
 		<url-pattern>/new_course</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>courseRegistration_servlet</servlet-name>
+		<servlet-class>de.unidue.inf.is.CourseRegistrationServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>courseRegistration_servlet</servlet-name>
+		<url-pattern>/new_enroll</url-pattern>
+	</servlet-mapping>
 	
 	<servlet>
 		<servlet-name>onlineLearner_servlet</servlet-name>
