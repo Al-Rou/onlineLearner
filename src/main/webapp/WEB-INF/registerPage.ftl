@@ -18,6 +18,13 @@
     <input type="submit" value="register"/>
 </form>
 </#list>
+<#list registered2 as kurss>
+    <h1>${kurss.name}</h1><br/>
+    <form name="user" action="new_enroll" method="post">
+
+        <input type="submit" value="register"/>
+    </form>
+</#list>
 <a href="/view_main"><button>Return to Main Page</button></a>
 </body>
 </html>

@@ -39,10 +39,17 @@ public class CourseRegistrationServlet extends HttpServlet {
             list.add(idToRegisterInt);
             List<Course> listOfCourse = courseStore.showMyOwnCourses(list);
             passToCheck += listOfCourse.get(0).getEinschreibeSchluessel();
-            request.setAttribute("registered", listOfCourse);
             request.setAttribute("error", errorMessage1);
             request.setAttribute("errorr", errorMessage2);
-            request.getRequestDispatcher("/registerPage.ftl").forward(request, response);
+            if(!passToCheck.isEmpty()) {
+                request.setAttribute("registered", listOfCourse);
+                request.getRequestDispatcher("/registerPage.ftl").forward(request, response);
+            }
+            else
+            {
+                request.setAttribute("registered2", listOfCourse);
+                request.getRequestDispatcher("/registerPage.ftl").forward(request, response);
+            }
         }
         else
         {
