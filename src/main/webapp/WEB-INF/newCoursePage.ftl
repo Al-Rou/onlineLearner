@@ -4,7 +4,9 @@
 <body>
 <h1>Create a new course</h1>
 <br/>
-<div><h3>${error}</h3></div>
+<div><h3>${error}</h3><br/>
+<a href="/"><button>Go to login</button></a>
+</div>
 <br/>
 <form name="user" action="new_course" method="post">
     Name: <input type="text" name="titel"/> <br/>

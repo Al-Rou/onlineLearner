@@ -2,7 +2,7 @@
 <head><title>Main Page</title>
 
 <body>
-<h1>${error}</h1><br/>
+<h3>${error}</h3><br/>
 <a href="/"><button>Go to login</button></a>
 <form name="user" action="view_main" method="post">
 
