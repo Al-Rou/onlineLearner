@@ -15,6 +15,7 @@ import java.util.List;
 public class RegistrationStore implements Closeable {
     private Connection connection;
     private boolean complete;
+    private UserStore userStore = new UserStore();
 
     public Connection makeConnection() throws StoreException
     {
@@ -47,6 +48,25 @@ public class RegistrationStore implements Closeable {
             complete = true;
             close();
             return result;
+        } catch (SQLException | IOException e)
+        {
+            throw new StoreException(e);
+        }
+    }
+    public boolean registerInCourse(int kid) throws StoreException
+    {
+        makeConnection();
+        try {
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("insert into dbp151.einschreiben(bnummer,kid) values (?,?)");
+            preparedStatement.setInt(1, userStore.fetchBNummerFromEmail(DBUtil.theUser));
+            preparedStatement.setInt(2, kid);
+            preparedStatement.executeUpdate();
+
+            preparedStatement.close();
+            complete = true;
+            close();
+            return complete;
         } catch (SQLException | IOException e)
         {
             throw new StoreException(e);

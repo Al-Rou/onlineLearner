@@ -4,6 +4,7 @@
 <body>
 <br/>
 <div><h3>${error}</h3><br/>
+    <h3>${errorr}</h3><br/>
     <a href="/"><button>Go to login</button></a>
 </div>
 <br/>
