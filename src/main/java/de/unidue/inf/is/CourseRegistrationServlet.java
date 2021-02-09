@@ -38,16 +38,19 @@ public class CourseRegistrationServlet extends HttpServlet {
             List<Integer> list = new ArrayList<>();
             list.add(idToRegisterInt);
             List<Course> listOfCourse = courseStore.showMyOwnCourses(list);
-            passToCheck += listOfCourse.get(0).getEinschreibeSchluessel();
+            //passToCheck += listOfCourse.get(0).getEinschreibeSchluessel();
             request.setAttribute("error", errorMessage1);
             request.setAttribute("errorr", errorMessage2);
-            if(!passToCheck.isEmpty()) {
+            List<Course> emptyList = new ArrayList<>();
+            if(!passToCheck.isEmpty() && !passToCheck.equals(null)) {
                 request.setAttribute("registered", listOfCourse);
+                request.setAttribute("registered2", emptyList);
                 request.getRequestDispatcher("/registerPage.ftl").forward(request, response);
             }
             else
             {
                 request.setAttribute("registered2", listOfCourse);
+                request.setAttribute("registered", emptyList);
                 request.getRequestDispatcher("/registerPage.ftl").forward(request, response);
             }
         }
@@ -57,6 +60,7 @@ public class CourseRegistrationServlet extends HttpServlet {
             errorMessage1 += "Access denied: You must login first as an authorized user!";
             List<Course> listOfCourse = new ArrayList<>();
             request.setAttribute("registered", listOfCourse);
+            request.setAttribute("registered2", listOfCourse);
             request.setAttribute("error", errorMessage1);
             request.setAttribute("errorr", errorMessage2);
             request.getRequestDispatcher("/registerPage.ftl").forward(request, response);
@@ -67,7 +71,7 @@ public class CourseRegistrationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
-        enteredPass = "";
+        /*enteredPass = "";
         enteredPass += request.getParameter("pass");
         if(enteredPass.equals(passToCheck))
         {
@@ -89,6 +93,6 @@ public class CourseRegistrationServlet extends HttpServlet {
             errorMessage2 = "";
             errorMessage2 += "Wrong Password!";
             doGet(request, response);
-        }
+        }*/
     }
 }
