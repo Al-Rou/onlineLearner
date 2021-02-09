@@ -8,6 +8,10 @@ public class Course {
     private int freiePlaetze;
     private int ersteller;
 
+    public Course(String name) {
+        this.name = name;
+    }
+
     public Course(int kID, String name, String beschreibungsText, int freiePlaetze, int ersteller) {
         this.kID = kID;
         this.name = name;

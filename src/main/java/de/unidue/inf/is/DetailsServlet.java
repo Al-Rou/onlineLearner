@@ -77,27 +77,7 @@ public class DetailsServlet extends HttpServlet {
                                     myDeliveryList.get(k).getAbgabeText(), myTasks.get(k).getaNummer(),
                                     myTasks.get(k).getkID(), myGradeList.get(k)));
                     }
-                    /*for(int k=0; k < myTasks.size(); k++)
-                    {
-                        if(aufgabeStore.fetchGrade(myTasks.get(k).getaID()
-                                //, myTasks.get(k).getbNummer()
-                        ) != 0)
-                        {
-                            myTasksToShow.add(new HandInToShow(aufgabeStore.fetchNameFromAufgabeNummer(myTasks.get(k).getaNummer()),
-                                    aufgabeStore.fetchTextFromAbgabeNummer(myTasks.get(k).getaID()),
-                                    Integer.toString(aufgabeStore.fetchGrade(myTasks.get(k).getaID()
-                                            //, myTasks.get(k).getbNummer()
-                                    )),
-                                    myTasks.get(k).getkID(), myTasks.get(k).getaNummer()));
-                        }
-                        else
-                        {
-                            myTasksToShow.add(new HandInToShow(aufgabeStore.fetchNameFromAufgabeNummer(myTasks.get(k).getaNummer()),
-                                    aufgabeStore.fetchTextFromAbgabeNummer(myTasks.get(k).getaID()),
-                                    "Noch keine Bewertung",
-                                    myTasks.get(k).getkID(), myTasks.get(k).getaNummer()));
-                        }
-                    }*/
+
                     request.setAttribute("title", title);
                     request.setAttribute("titletwo", titletwo);
                     request.setAttribute("titlethree", titlethree);
