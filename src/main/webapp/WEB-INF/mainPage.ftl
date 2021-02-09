@@ -2,6 +2,8 @@
 <head><title>Main Page</title>
 
 <body>
+<h1>${error}</h1><br/>
+<a href="${address}"><button>Go to login</button></a>
 <form name="user" action="view_main" method="post">
 
     <h1>My Courses:</h1>

@@ -19,6 +19,8 @@ import java.util.List;
 
 public class MainPageServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    private static String errorMessage = "";
+    private static String addressMessage = "";
 
     private static CourseStore courseStore = new CourseStore();
     private static LoginStore loginStore = new LoginStore();
@@ -57,10 +59,18 @@ public class MainPageServlet extends HttpServlet {
                                 listOfMyOwnCourses.get(k).getFreiePlaetze()));
                     }
                     request.setAttribute("myowncourse", answerListForMe);
+                    errorMessage = "";
+                    addressMessage = "";
+                    request.setAttribute("error", errorMessage);
+                    request.setAttribute("address", addressMessage);
                 }
                 else {
                     request.setAttribute("mycourse", "There is no course available at all!");
                     request.setAttribute("myowncourse", "There is no course available at all!");
+                    errorMessage = "";
+                    addressMessage = "";
+                    request.setAttribute("error", errorMessage);
+                    request.setAttribute("address", addressMessage);
                 }
             }
             else
@@ -69,6 +79,12 @@ public class MainPageServlet extends HttpServlet {
                 request.setAttribute("myowncourse", kosUser);
                 List<Course> kosCourse = new ArrayList<>();
                 request.setAttribute("mycourse", kosCourse);
+                errorMessage = "";
+                errorMessage += "Access denied: You must login first as an authorized user!";
+                request.setAttribute("error", errorMessage);
+                addressMessage ="";
+                addressMessage += "/";
+                request.setAttribute("address", addressMessage);
             }
         request.getRequestDispatcher("/mainPage.ftl").forward(request, response);
     }
