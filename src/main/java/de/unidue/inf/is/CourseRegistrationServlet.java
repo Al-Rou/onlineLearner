@@ -30,7 +30,8 @@ public class CourseRegistrationServlet extends HttpServlet {
         if(!DBUtil.theUser.isEmpty()) {
             errorMessage1 = "";
             passToCheck = "";
-            String idToRegister = request.getParameter("kid");
+            String idToRegister = "";
+            idToRegister += request.getParameter("kid");
             if(!idToRegister.isEmpty()) {
                 idToRegisterInt = Integer.parseInt(idToRegister);
             }
