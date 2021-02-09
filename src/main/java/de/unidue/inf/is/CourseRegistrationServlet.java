@@ -38,7 +38,7 @@ public class CourseRegistrationServlet extends HttpServlet {
             List<Integer> list = new ArrayList<>();
             list.add(idToRegisterInt);
             List<Course> listOfCourse = courseStore.showMyOwnCourses(list);
-            //passToCheck += listOfCourse.get(0).getEinschreibeSchluessel();
+            passToCheck += listOfCourse.get(0).getEinschreibeSchluessel();
             request.setAttribute("error", errorMessage1);
             request.setAttribute("errorr", errorMessage2);
             List<Course> emptyList = new ArrayList<>();
