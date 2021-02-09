@@ -9,7 +9,7 @@
 <br/>
 
 <#list registered as kurs>
-    <h1></h1><br/>
+    <h1>${kurs.name}</h1><br/>
 <form name="user" action="new_enroll" method="post">
 
     Registration Password: <input type="text" name="pass"/><br/>

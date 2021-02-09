@@ -27,10 +27,9 @@ public class CourseRegistrationServlet extends HttpServlet {
         int idToRegisterInt = Integer.parseInt(idToRegister);
         List<Integer> list = new ArrayList<>();
         list.add(idToRegisterInt);
-        List<Course> listOfCourse = new ArrayList<>();
-        listOfCourse = courseStore.showMyOwnCourses(list);
+        List<Course> listOfCourse = courseStore.showMyOwnCourses(list);
         passToCheck += listOfCourse.get(0).getEinschreibeSchluessel();
-        request.setAttribute("reg", listOfCourse);
+        request.setAttribute("registered", listOfCourse);
         request.setAttribute("error", errorMessage);
         request.getRequestDispatcher("/registerPage.ftl").forward(request, response);
     }
