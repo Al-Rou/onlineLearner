@@ -40,7 +40,7 @@ public class DetailsServlet extends HttpServlet {
         if(!DBUtil.theUser.isEmpty()) {
             myOwnCourses = registrationStore.fetchCourseIDFromUserID(userStore.fetchBNummerFromEmail(DBUtil.theUser));
             for (int j = 0; j < myOwnCourses.size(); j++) {
-                if (myOwnCourses.get(j) == Integer.valueOf(intCourseID)) {
+                if (myOwnCourses.get(j).equals(Integer.valueOf(intCourseID))) {
                     List<Integer> list11 = new ArrayList<>();
                     list11.add(intCourseID);
                     List<Course> list22 = courseStore.showMyOwnCourses(list11);

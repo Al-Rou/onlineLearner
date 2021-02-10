@@ -32,7 +32,7 @@ public class DeleteCourseServlet extends HttpServlet {
             if (!courseID.isEmpty() && !courseID.equals("null")) {
                 idInt = Integer.parseInt(courseID);
             }
-            //if (idInt != 0) {
+
                 List<Integer> list = new ArrayList<>();
                 list.add(idInt);
                 listOfCourse = courseStore.showMyOwnCourses(list);
@@ -48,7 +48,7 @@ public class DeleteCourseServlet extends HttpServlet {
                     request.setAttribute("error", errorMessage);
                 }
                 request.getRequestDispatcher("deletePage.ftl").forward(request, response);
-            //}
+
         }
         else
         {
@@ -65,7 +65,6 @@ public class DeleteCourseServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
-        //if (idInt != 0) {
             List<Integer> listAID = einreichenStore.fetchAbgabeID(idInt);
             if (courseStore.deleteCourse(idInt, listAID))
             {
@@ -78,7 +77,6 @@ public class DeleteCourseServlet extends HttpServlet {
                 errorMessage += "Error: Something is wrong with database! Try again later!";
                 doGet(request, response);
             }
-        //}
         doGet(request, response);
     }
 }
