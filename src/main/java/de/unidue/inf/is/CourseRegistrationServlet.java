@@ -45,14 +45,15 @@ public class CourseRegistrationServlet extends HttpServlet {
             if(!passToCheck.isEmpty() && !passToCheck.equals(null)) {
                 request.setAttribute("registered", listOfCourse);
                 request.setAttribute("registered2", emptyList);
-                request.getRequestDispatcher("/registerPage.ftl").forward(request, response);
+                //request.getRequestDispatcher("/registerPage.ftl").forward(request, response);
             }
             else
             {
                 request.setAttribute("registered2", listOfCourse);
                 request.setAttribute("registered", emptyList);
-                request.getRequestDispatcher("/registerPage.ftl").forward(request, response);
+                //request.getRequestDispatcher("/registerPage.ftl").forward(request, response);
             }
+            request.getRequestDispatcher("/registerPage.ftl").forward(request, response);
         }
         else
         {
@@ -81,7 +82,9 @@ public class CourseRegistrationServlet extends HttpServlet {
         else {
         if(enteredPass.equals(passToCheck))
         {
-            if(registrationStore.registerInCourse(idToRegisterInt))
+            MainPageServlet mainPageServlet = new MainPageServlet();
+            mainPageServlet.doGet(request, response);
+            /*if(registrationStore.registerInCourse(idToRegisterInt))
             {
                 errorMessage2 = "";
                 errorMessage2 += "Registration was successful!";
@@ -92,7 +95,7 @@ public class CourseRegistrationServlet extends HttpServlet {
                 errorMessage2 = "";
                 errorMessage2 += "Registration Failed: Something is wrong with database! Try again later!";
                 doGet(request, response);
-            }
+            }*/
         }
         else
         {
