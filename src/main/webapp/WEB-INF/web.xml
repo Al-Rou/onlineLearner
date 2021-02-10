@@ -107,6 +107,16 @@
 		<servlet-name>courseRegistration_servlet</servlet-name>
 		<url-pattern>/new_enroll</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>deleteCourse_servlet</servlet-name>
+		<servlet-class>de.unidue.inf.is.DeleteCourseServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>deleteCourse_servlet</servlet-name>
+		<url-pattern>/delete</url-pattern>
+	</servlet-mapping>
 	
 	<servlet>
 		<servlet-name>onlineLearner_servlet</servlet-name>
