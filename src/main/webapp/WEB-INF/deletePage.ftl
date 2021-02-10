@@ -13,7 +13,7 @@
 
         Are you sure about deleting ${kurs.name} ?<br/>
 
-        <input type="submit" name="pass" value="delete"/>
+        <input type="submit" value="delete"/>
     </form>
 </#list>
 <a href="/view_main"><button>Return to Main Page</button></a>

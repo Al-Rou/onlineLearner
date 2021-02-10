@@ -20,6 +20,7 @@ public class DeleteCourseServlet extends HttpServlet {
     private static CourseStore courseStore = new CourseStore();
     private static UserStore userStore = new UserStore();
     private static EinreichenStore einreichenStore = new EinreichenStore();
+    private static int idInt;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -28,11 +29,10 @@ public class DeleteCourseServlet extends HttpServlet {
         if(!DBUtil.theUser.isEmpty()) {
             String courseID = request.getParameter("kid");
             List<Course> listOfCourse = new ArrayList<>();
-            int idInt = 0;
-            if (!courseID.equals("null")) {
+            if (!courseID.isEmpty() && !courseID.equals("null")) {
                 idInt = Integer.parseInt(courseID);
             }
-            if (idInt != 0) {
+            //if (idInt != 0) {
                 List<Integer> list = new ArrayList<>();
                 list.add(idInt);
                 listOfCourse = courseStore.showMyOwnCourses(list);
@@ -48,7 +48,7 @@ public class DeleteCourseServlet extends HttpServlet {
                     request.setAttribute("error", errorMessage);
                 }
                 request.getRequestDispatcher("deletePage.ftl").forward(request, response);
-            }
+            //}
         }
         else
         {
@@ -65,13 +65,7 @@ public class DeleteCourseServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
-        String courseID = request.getParameter("kid");
-        //List<Course> listOfCourse = new ArrayList<>();
-        int idInt = 0;
-        if (!courseID.isEmpty() && !courseID.equals("null")) {
-            idInt = Integer.parseInt(courseID);
-        }
-        if (idInt != 0) {
+        //if (idInt != 0) {
             List<Integer> listAID = einreichenStore.fetchAbgabeID(idInt);
             if (courseStore.deleteCourse(idInt, listAID))
             {
@@ -84,7 +78,7 @@ public class DeleteCourseServlet extends HttpServlet {
                 errorMessage += "Error: Something is wrong with database! Try again later!";
                 doGet(request, response);
             }
-        }
+        //}
         doGet(request, response);
     }
 }
