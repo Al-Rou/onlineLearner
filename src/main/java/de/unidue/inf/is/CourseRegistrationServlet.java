@@ -78,7 +78,8 @@ public class CourseRegistrationServlet extends HttpServlet {
             MainPageServlet mainPageServlet = new MainPageServlet();
             mainPageServlet.doGet(request, response);
         }
-        /*if(enteredPass.equals(passToCheck))
+        else {
+        if(enteredPass.equals(passToCheck))
         {
             if(registrationStore.registerInCourse(idToRegisterInt))
             {
@@ -98,6 +99,7 @@ public class CourseRegistrationServlet extends HttpServlet {
             errorMessage2 = "";
             errorMessage2 += "Wrong Password!";
             doGet(request, response);
-        }*/
+        }
+        }
     }
 }
