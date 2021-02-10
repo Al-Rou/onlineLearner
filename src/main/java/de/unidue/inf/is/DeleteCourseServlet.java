@@ -68,7 +68,7 @@ public class DeleteCourseServlet extends HttpServlet {
         String courseID = request.getParameter("kid");
         //List<Course> listOfCourse = new ArrayList<>();
         int idInt = 0;
-        if (!courseID.equals("null")) {
+        if (!courseID.isEmpty() && !courseID.equals("null")) {
             idInt = Integer.parseInt(courseID);
         }
         if (idInt != 0) {
