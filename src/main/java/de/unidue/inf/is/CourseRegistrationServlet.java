@@ -42,8 +42,8 @@ public class CourseRegistrationServlet extends HttpServlet {
             request.setAttribute("error", errorMessage1);
             request.setAttribute("errorr", errorMessage2);
             List<Course> emptyList = new ArrayList<>();
-            //if(!passToCheck.isEmpty() && !passToCheck.equals(null)) {
-            if(!passToCheck.equals("") && !passToCheck.startsWith(" ")) {
+            if(!passToCheck.isEmpty() && !passToCheck.equals(null)) {
+            //if(!passToCheck.equals("") && !passToCheck.startsWith(" ") && !passToCheck.contains(" ")) {
                 request.setAttribute("registered", listOfCourse);
                 request.setAttribute("registered2", emptyList);
                 request.getRequestDispatcher("/registerPage.ftl").forward(request, response);

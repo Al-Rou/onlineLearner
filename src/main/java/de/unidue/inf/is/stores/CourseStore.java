@@ -65,7 +65,8 @@ public class CourseStore implements Closeable {
                     ResultSet resultSet = preparedStatement.executeQuery();
                     while (resultSet.next()) {
                         result.add(new Course(resultSet.getInt("kid"), resultSet.getString("name"),
-                                resultSet.getString("beschreibungsText"), resultSet.getInt("freiePlaetze"),
+                                resultSet.getString("beschreibungsText"), resultSet.getString("einschreibeschluessel"),
+                                resultSet.getInt("freiePlaetze"),
                                 resultSet.getInt("ersteller")));
                     }
                     resultSet.close();
