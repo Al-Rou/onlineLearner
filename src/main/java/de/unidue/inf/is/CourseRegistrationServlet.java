@@ -32,7 +32,7 @@ public class CourseRegistrationServlet extends HttpServlet {
             passToCheck = "";
             String idToRegister = "";
             idToRegister += request.getParameter("kid");
-            if(!idToRegister.isEmpty()) {
+            if(!idToRegister.isEmpty() && !idToRegister.equals("null")) {
                 idToRegisterInt = Integer.parseInt(idToRegister);
             }
             List<Integer> list = new ArrayList<>();
@@ -59,6 +59,7 @@ public class CourseRegistrationServlet extends HttpServlet {
         {
             errorMessage1 = "";
             errorMessage1 += "Access denied: You must login first as an authorized user!";
+            errorMessage2 = "";
             List<Course> listOfCourse = new ArrayList<>();
             request.setAttribute("registered", listOfCourse);
             request.setAttribute("registered2", listOfCourse);
