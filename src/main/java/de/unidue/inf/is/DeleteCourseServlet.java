@@ -23,29 +23,38 @@ public class DeleteCourseServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
-        String courseID = request.getParameter("kid");
-        List<Course> listOfCourse = new ArrayList<>();
-        int idInt = 0;
-        if(!courseID.equals("null"))
-        {
-            idInt = Integer.parseInt(courseID);
+        if(!DBUtil.theUser.isEmpty()) {
+            String courseID = request.getParameter("kid");
+            List<Course> listOfCourse = new ArrayList<>();
+            int idInt = 0;
+            if (!courseID.equals("null")) {
+                idInt = Integer.parseInt(courseID);
+            }
+            if (idInt != 0) {
+                List<Integer> list = new ArrayList<>();
+                list.add(idInt);
+                listOfCourse = courseStore.showMyOwnCourses(list);
+                if (listOfCourse.get(0).getErsteller() == userStore.fetchBNummerFromEmail(DBUtil.theUser)) {
+                    errorMessage = "";
+                    request.setAttribute("registered", listOfCourse);
+                    request.setAttribute("error", errorMessage);
+                } else {
+                    List<Course> emptyList = new ArrayList<>();
+                    errorMessage = "";
+                    errorMessage += "Error: Only the producer of a course is authorized to delete it!";
+                    request.setAttribute("registered", emptyList);
+                    request.setAttribute("error", errorMessage);
+                }
+                request.getRequestDispatcher("deletePage.ftl").forward(request, response);
+            }
         }
-        if(idInt != 0) {
-            List<Integer> list = new ArrayList<>();
-            list.add(idInt);
-            listOfCourse = courseStore.showMyOwnCourses(list);
-            if(listOfCourse.get(0).getErsteller() == userStore.fetchBNummerFromEmail(DBUtil.theUser)) {
-                request.setAttribute("registered", listOfCourse);
-                request.setAttribute("error", errorMessage);
-            }
-            else
-            {
-                List<Course> emptyList = new ArrayList<>();
-                errorMessage = "";
-                errorMessage += "Error: Only the producer of a course is authorized to delete it!";
-                request.setAttribute("registered", emptyList);
-                request.setAttribute("error", errorMessage);
-            }
+        else
+        {
+            errorMessage = "";
+            errorMessage += "Access is denied! Login first!";
+            List<Course> emptyList = new ArrayList<>();
+            request.setAttribute("registered", emptyList);
+            request.setAttribute("error", errorMessage);
             request.getRequestDispatcher("deletePage.ftl").forward(request, response);
         }
     }
