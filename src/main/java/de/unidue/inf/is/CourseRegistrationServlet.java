@@ -77,26 +77,31 @@ public class CourseRegistrationServlet extends HttpServlet {
         enteredPass += request.getParameter("pass");
         if(enteredPass.equals("register"))
         {
-            MainPageServlet mainPageServlet = new MainPageServlet();
-            mainPageServlet.doGet(request, response);
-        }
-        else {
-        if(enteredPass.equals(passToCheck))
-        {
-            MainPageServlet mainPageServlet = new MainPageServlet();
-            mainPageServlet.doGet(request, response);
-            /*if(registrationStore.registerInCourse(idToRegisterInt))
-            {
-                errorMessage2 = "";
-                errorMessage2 += "Registration was successful!";
-                doGet(request, response);
+            if(registrationStore.registerInCourse(idToRegisterInt)) {
+                MainPageServlet mainPageServlet = new MainPageServlet();
+                mainPageServlet.doGet(request, response);
             }
             else
             {
                 errorMessage2 = "";
                 errorMessage2 += "Registration Failed: Something is wrong with database! Try again later!";
                 doGet(request, response);
-            }*/
+            }
+        }
+        else {
+        if(enteredPass.equals(passToCheck))
+        {
+            if(registrationStore.registerInCourse(idToRegisterInt))
+            {
+                MainPageServlet mainPageServlet = new MainPageServlet();
+                mainPageServlet.doGet(request, response);
+            }
+            else
+            {
+                errorMessage2 = "";
+                errorMessage2 += "Registration Failed: Something is wrong with database! Try again later!";
+                doGet(request, response);
+            }
         }
         else
         {
