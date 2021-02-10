@@ -29,6 +29,29 @@ public class EinreichenStore implements Closeable {
             throw new StoreException(e);
         }
     }
+    public List<Integer> fetchAbgabeID(int kid) throws StoreException
+    {
+        makeConnection();
+        try{
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("select aid from dbp151.einreichen where kid=?");
+            preparedStatement.setInt(1, kid);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<Integer> result = new ArrayList<>();
+            while (resultSet.next())
+            {
+                result.add(resultSet.getInt("aid"));
+            }
+            resultSet.close();
+            preparedStatement.close();
+            complete = true;
+            close();
+            return result;
+        }catch (SQLException | IOException e)
+        {
+            throw new StoreException(e);
+        }
+    }
 
     public int fetchAbgabeID(int bnummer, int kid, int anummer) throws StoreException
     {

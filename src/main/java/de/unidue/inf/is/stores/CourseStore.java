@@ -107,6 +107,55 @@ public class CourseStore implements Closeable {
             throw new StoreException(e);
         }
     }
+    public boolean deleteCourse(int kid, List<Integer> list) throws StoreException
+    {
+        makeConnection();
+        try {
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("delete from dbp151.einreichen where kid=?");
+            preparedStatement.setInt(1, kid);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+            for (int j=0; j < list.size(); j++) {
+                PreparedStatement preparedStatement1 = connection
+                        .prepareStatement("delete from dbp151.bewerten where aid=?");
+                preparedStatement1.setInt(1, list.get(j));
+                preparedStatement1.executeUpdate();
+                preparedStatement1.close();
+            }
+            for (int k=0; k < list.size(); k++) {
+                PreparedStatement preparedStatement2 = connection
+                        .prepareStatement("delete from dbp151.abgabe where aid=?");
+                preparedStatement2.setInt(1, list.get(k));
+                preparedStatement2.executeUpdate();
+                preparedStatement2.close();
+            }
+            PreparedStatement preparedStatement3 = connection
+                    .prepareStatement("delete from dbp151.aufgabe where kid=?");
+            preparedStatement3.setInt(1, kid);
+            preparedStatement3.executeUpdate();
+            preparedStatement3.close();
+
+            PreparedStatement preparedStatement4 = connection
+                    .prepareStatement("delete from dbp151.einschreiben where kid=?");
+            preparedStatement4.setInt(1, kid);
+            preparedStatement4.executeUpdate();
+            preparedStatement4.close();
+
+            PreparedStatement preparedStatement5 = connection
+                    .prepareStatement("delete from dbp151.kurs where kid=?");
+            preparedStatement5.setInt(1, kid);
+            preparedStatement5.executeUpdate();
+            preparedStatement5.close();
+
+            complete = true;
+            close();
+            return complete;
+        } catch (SQLException | IOException e)
+        {
+            throw new StoreException(e);
+        }
+    }
 
     @Override
     public void close() throws IOException {

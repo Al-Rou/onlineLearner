@@ -2,6 +2,7 @@ package de.unidue.inf.is;
 
 import de.unidue.inf.is.domain.Course;
 import de.unidue.inf.is.stores.CourseStore;
+import de.unidue.inf.is.stores.EinreichenStore;
 import de.unidue.inf.is.stores.UserStore;
 import de.unidue.inf.is.utils.DBUtil;
 
@@ -18,6 +19,7 @@ public class DeleteCourseServlet extends HttpServlet {
     private static String errorMessage = "";
     private static CourseStore courseStore = new CourseStore();
     private static UserStore userStore = new UserStore();
+    private static EinreichenStore einreichenStore = new EinreichenStore();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -57,5 +59,32 @@ public class DeleteCourseServlet extends HttpServlet {
             request.setAttribute("error", errorMessage);
             request.getRequestDispatcher("deletePage.ftl").forward(request, response);
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException
+    {
+        String courseID = request.getParameter("kid");
+        //List<Course> listOfCourse = new ArrayList<>();
+        int idInt = 0;
+        if (!courseID.equals("null")) {
+            idInt = Integer.parseInt(courseID);
+        }
+        if (idInt != 0) {
+            List<Integer> listAID = einreichenStore.fetchAbgabeID(idInt);
+            if (courseStore.deleteCourse(idInt, listAID))
+            {
+                MainPageServlet mainPageServlet = new MainPageServlet();
+                mainPageServlet.doGet(request, response);
+            }
+            else
+            {
+                errorMessage = "";
+                errorMessage += "Error: Something is wrong with database! Try again later!";
+                doGet(request, response);
+            }
+        }
+        doGet(request, response);
     }
 }
