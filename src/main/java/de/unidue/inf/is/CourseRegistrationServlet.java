@@ -71,9 +71,14 @@ public class CourseRegistrationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
-        /*enteredPass = "";
+        enteredPass = "";
         enteredPass += request.getParameter("pass");
-        if(enteredPass.equals(passToCheck))
+        if(enteredPass.equals("register"))
+        {
+            MainPageServlet mainPageServlet = new MainPageServlet();
+            mainPageServlet.doGet(request, response);
+        }
+        /*if(enteredPass.equals(passToCheck))
         {
             if(registrationStore.registerInCourse(idToRegisterInt))
             {
