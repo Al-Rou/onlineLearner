@@ -62,8 +62,14 @@ public class RegistrationStore implements Closeable {
             preparedStatement.setInt(1, userStore.fetchBNummerFromEmail(DBUtil.theUser));
             preparedStatement.setInt(2, kid);
             preparedStatement.executeUpdate();
-
             preparedStatement.close();
+
+            PreparedStatement preparedStatement1 = connection
+                    .prepareStatement("update dbp151.kurs set freieplaetze=freieplaetze-1 where kid=?");
+            preparedStatement1.setInt(1, kid);
+            preparedStatement1.executeUpdate();
+            preparedStatement1.close();
+
             complete = true;
             close();
             return complete;
