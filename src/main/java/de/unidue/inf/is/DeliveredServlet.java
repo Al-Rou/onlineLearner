@@ -1,6 +1,7 @@
 package de.unidue.inf.is;
 
 import de.unidue.inf.is.domain.Course;
+import de.unidue.inf.is.utils.DBUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,9 +19,21 @@ public class DeliveredServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
-        List<Course> emptyList = new ArrayList<>();
-        request.setAttribute("error", errorMessage);
-        request.setAttribute("registered", emptyList);
-        request.getRequestDispatcher("assignmentPage.ftl").forward(request, response);
+        if(!DBUtil.theUser.isEmpty()) {
+            List<Course> emptyList = new ArrayList<>();
+            request.setAttribute("error", errorMessage);
+            request.setAttribute("registered", emptyList);
+            request.getRequestDispatcher("/assignmentPage.ftl").forward(request, response);
+        }
+        else
+        {
+            errorMessage = "";
+            errorMessage += "Access denied: You must login first as an authorized user!";
+            List<Course> emptyList = new ArrayList<>();
+            request.setAttribute("registered", emptyList);
+            request.setAttribute("error", errorMessage);
+
+            request.getRequestDispatcher("/assignmentPage.ftl").forward(request, response);
+        }
     }
 }
