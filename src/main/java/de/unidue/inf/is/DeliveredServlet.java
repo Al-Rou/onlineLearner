@@ -5,6 +5,8 @@ import de.unidue.inf.is.domain.Task;
 import de.unidue.inf.is.domain.TaskToShow;
 import de.unidue.inf.is.stores.AufgabeStore;
 import de.unidue.inf.is.stores.CourseStore;
+import de.unidue.inf.is.stores.EinreichenStore;
+import de.unidue.inf.is.stores.UserStore;
 import de.unidue.inf.is.utils.DBUtil;
 
 import javax.servlet.ServletException;
@@ -22,6 +24,8 @@ public class DeliveredServlet extends HttpServlet {
     private static int taskIDInt;
     private CourseStore courseStore = new CourseStore();
     private AufgabeStore aufgabeStore = new AufgabeStore();
+    private UserStore userStore = new UserStore();
+    private EinreichenStore einreichenStore = new EinreichenStore();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -71,6 +75,24 @@ public class DeliveredServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
-        jhhd
+        String answerText = request.getParameter("answer");
+        if(!answerText.isEmpty() && !answerText.equals("null"))
+        {
+            if(einreichenStore.insertText(answerText, courseIDInt, taskIDInt, userStore.fetchBNummerFromEmail(DBUtil.theUser)))
+            {
+                MainPageServlet mainPageServlet = new MainPageServlet();
+                mainPageServlet.doGet(request, response);
+            }
+            else
+            {
+                errorMessage = "";
+                errorMessage += "Error: Something is wrong with database! Try again later!";
+                doGet(request, response);
+            }
+        }
+        else
+        {
+            doGet(request, response);
+        }
     }
 }
