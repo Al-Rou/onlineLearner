@@ -117,6 +117,16 @@
 		<servlet-name>deleteCourse_servlet</servlet-name>
 		<url-pattern>/delete</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>delivered_servlet</servlet-name>
+		<servlet-class>de.unidue.inf.is.DeliveredServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>delivered_servlet</servlet-name>
+		<url-pattern>/new_assignment</url-pattern>
+	</servlet-mapping>
 	
 	<servlet>
 		<servlet-name>onlineLearner_servlet</servlet-name>
