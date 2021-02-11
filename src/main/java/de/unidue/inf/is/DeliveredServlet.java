@@ -67,4 +67,10 @@ public class DeliveredServlet extends HttpServlet {
             request.getRequestDispatcher("/assignmentPage.ftl").forward(request, response);
         }
     }
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException
+    {
+        jhhd
+    }
 }

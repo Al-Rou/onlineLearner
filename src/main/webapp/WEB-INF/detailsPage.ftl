@@ -40,6 +40,7 @@
         </tr>
         </#list>
     </table>
-<a href="/"><button>Back to login</button></a>
+<a href="/"><button>Back to login</button></a><br/>
+<a href="/view_main"><button>Return to Main Page</button></a>
 </body>
 </html>

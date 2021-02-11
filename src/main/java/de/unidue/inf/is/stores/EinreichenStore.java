@@ -105,6 +105,40 @@ public class EinreichenStore implements Closeable {
             throw new StoreException(e);
         }
     }
+    public boolean insertText(String abgabeText, int kid, int anummer, int bnummer) throws StoreException
+    {
+        makeConnection();
+        try {
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("select aid from final table (insert into dbp151.abgabe (abgabetext) values(?))");
+            preparedStatement.setString(1, abgabeText);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<Integer> result = new ArrayList<>();
+            while (resultSet.next())
+            {
+                result.add(resultSet.getInt("aid"));
+            }
+            resultSet.close();
+            preparedStatement.close();
+
+            PreparedStatement preparedStatement1 = connection
+                    .prepareStatement("insert into dbp151.einreichen (bnummer,kid,anummer,aid) values (?,?,?,?)");
+            preparedStatement1.setInt(1, bnummer);
+            preparedStatement1.setInt(2, kid);
+            preparedStatement1.setInt(3, anummer);
+            preparedStatement1.setInt(4, result.get(0));
+            preparedStatement1.executeUpdate();
+
+            preparedStatement1.close();
+            complete = true;
+            close();
+            return complete;
+        }catch (SQLException | IOException e)
+        {
+            throw new StoreException(e);
+        }
+    }
 
     @Override
     public void close() throws IOException
