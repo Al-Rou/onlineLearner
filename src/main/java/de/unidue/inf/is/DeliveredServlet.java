@@ -32,8 +32,8 @@ public class DeliveredServlet extends HttpServlet {
         throws ServletException, IOException
     {
         if(!DBUtil.theUser.isEmpty()) {
-            if(einreichenStore.fetchAbgabeID(userStore.fetchBNummerFromEmail(DBUtil.theUser),
-                    courseIDInt, taskIDInt) == 0) {
+            //if(einreichenStore.fetchAbgabeID(userStore.fetchBNummerFromEmail(DBUtil.theUser),
+                    //courseIDInt, taskIDInt) == 0) {
                 errorMessage = "";
                 String courseID = request.getParameter("kid");
                 String taskID = request.getParameter("anummer");
@@ -45,20 +45,32 @@ public class DeliveredServlet extends HttpServlet {
                 if (!taskID.isEmpty() && !taskID.equals("null")) {
                     taskIDInt = Integer.parseInt(taskID);
                 }
-                List<Course> courseList = courseStore.showMyOwnCourses(list1);
-                List<Task> taskList = aufgabeStore.fetchTasksFromCourseID(courseIDInt);
-                List<TaskToShow> taskToShowList = new ArrayList<>();
-                for (int i = 0; i < taskList.size(); i++) {
-                    if (taskList.get(i).getaNummer() == taskIDInt) {
-                        taskToShowList.add(new TaskToShow(courseList.get(0).getName(),
-                                taskIDInt, taskList.get(i).getName(), taskList.get(i).getBeschreibung(), courseIDInt));
+                if(einreichenStore.fetchAbgabeID(userStore.fetchBNummerFromEmail(DBUtil.theUser),
+                    courseIDInt, taskIDInt) == 0) {
+                    List<Course> courseList = courseStore.showMyOwnCourses(list1);
+                    List<Task> taskList = aufgabeStore.fetchTasksFromCourseID(courseIDInt);
+                    List<TaskToShow> taskToShowList = new ArrayList<>();
+                    for (int i = 0; i < taskList.size(); i++) {
+                        if (taskList.get(i).getaNummer() == taskIDInt) {
+                            taskToShowList.add(new TaskToShow(courseList.get(0).getName(),
+                                    taskIDInt, taskList.get(i).getName(), taskList.get(i).getBeschreibung(), courseIDInt));
+                        }
                     }
+                    request.setAttribute("error", errorMessage);
+                    request.setAttribute("registered", taskToShowList);
+                    request.getRequestDispatcher("/assignmentPage.ftl").forward(request, response);
                 }
-                request.setAttribute("error", errorMessage);
-                request.setAttribute("registered", taskToShowList);
-                request.getRequestDispatcher("/assignmentPage.ftl").forward(request, response);
-            }
-            else
+                else
+                {
+                    errorMessage = "";
+                    errorMessage += "Error: You have already submitted your answer to this task!";
+                    request.setAttribute("error", errorMessage);
+                    List<TaskToShow> emptyListToShow = new ArrayList<>();
+                    request.setAttribute("registered", emptyListToShow);
+                    request.getRequestDispatcher("/assignmentPage.ftl").forward(request, response);
+                }
+            //}
+            /*else
             {
                 errorMessage = "";
                 errorMessage += "Error: You have already submitted your answer to this task!";
@@ -66,7 +78,7 @@ public class DeliveredServlet extends HttpServlet {
                 List<TaskToShow> emptyListToShow = new ArrayList<>();
                 request.setAttribute("registered", emptyListToShow);
                 request.getRequestDispatcher("/assignmentPage.ftl").forward(request, response);
-            }
+            }*/
         }
         else
         {
