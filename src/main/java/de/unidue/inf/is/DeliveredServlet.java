@@ -28,6 +28,7 @@ public class DeliveredServlet extends HttpServlet {
         throws ServletException, IOException
     {
         if(!DBUtil.theUser.isEmpty()) {
+            errorMessage = "";
             String courseID = request.getParameter("kid");
             String taskID = request.getParameter("anummer");
             if(!courseID.isEmpty() && !courseID.equals("null"))

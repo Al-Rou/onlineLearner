@@ -19,13 +19,16 @@ public class DetailsServlet extends HttpServlet {
     private static RegistrationStore registrationStore = new RegistrationStore();
     private static AufgabeStore aufgabeStore = new AufgabeStore();
     private static EinreichenStore einreichenStore = new EinreichenStore();
+    private static int courseIDInt;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
         String courseID = request.getParameter("kid");
-        int intCourseID = Integer.parseInt(courseID);
+        if(!courseID.isEmpty() && !courseID.equals("null")) {
+            courseIDInt = Integer.parseInt(courseID);
+        }
         List<CourseWithProducersName> list3 = new ArrayList<>();
         List<CourseWithProducersName> list33 = new ArrayList<>();
         List<Task> myTasks = new ArrayList<>();
@@ -40,9 +43,9 @@ public class DetailsServlet extends HttpServlet {
         if(!DBUtil.theUser.isEmpty()) {
             myOwnCourses = registrationStore.fetchCourseIDFromUserID(userStore.fetchBNummerFromEmail(DBUtil.theUser));
             for (int j = 0; j < myOwnCourses.size(); j++) {
-                if (myOwnCourses.get(j).equals(Integer.valueOf(intCourseID))) {
+                if (myOwnCourses.get(j).equals(Integer.valueOf(courseIDInt))) {
                     List<Integer> list11 = new ArrayList<>();
-                    list11.add(intCourseID);
+                    list11.add(courseIDInt);
                     List<Course> list22 = courseStore.showMyOwnCourses(list11);
                     for (int i = 0; i < list22.size(); i++) {
                         list33.add(new CourseWithProducersName(list22.get(i).getkID(), list22.get(i).getName(),
@@ -53,7 +56,7 @@ public class DetailsServlet extends HttpServlet {
                     title += "Task";
                     titletwo += "My Delivery";
                     titlethree += "Grade";
-                    myTasks = aufgabeStore.fetchTasksFromCourseID(intCourseID);
+                    myTasks = aufgabeStore.fetchTasksFromCourseID(courseIDInt);
                     for (int k=0; k < myTasks.size(); k++) {
                         if (einreichenStore.fetchAbgabeID(userStore.fetchBNummerFromEmail(DBUtil.theUser),
                                 myTasks.get(k).getkID(), myTasks.get(k).getaNummer()) != 0) {
@@ -89,7 +92,7 @@ public class DetailsServlet extends HttpServlet {
                 }
             }
             List<Integer> list1 = new ArrayList<>();
-            list1.add(intCourseID);
+            list1.add(courseIDInt);
             List<Course> list2 = courseStore.showMyOwnCourses(list1);
             for (int i = 0; i < list2.size(); i++) {
                 list3.add(new CourseWithProducersName(list2.get(i).getkID(), list2.get(i).getName(),

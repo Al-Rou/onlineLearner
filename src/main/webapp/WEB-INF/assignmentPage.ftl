@@ -11,10 +11,10 @@
 <#list registered as kurs>
     <form name="user" action="delete" method="post">
 
-        Course: ${kurs.courseName} <br/>
-        Task: ${kurs.taskName} <br/>
-        Description: ${kurs.taskDescription} <br/>
-        Answer: <textarea name="answer" rows="10" cols="40"></textarea>
+        <h3>Course:</h3> ${kurs.courseName} <br/>
+        <h3>Task:</h3> ${kurs.taskName} <br/>
+        <h3>Description:</h3> ${kurs.taskDescription} <br/>
+        <h3>Answer:</h3> <textarea name="answer" rows="10" cols="40"></textarea><br/>
 
         <input type="submit" value="deliver"/>
     </form>
