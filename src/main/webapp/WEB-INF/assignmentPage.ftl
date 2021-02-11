@@ -9,7 +9,7 @@
 <br/>
 
 <#list registered as kurs>
-    <form name="user" action="delete" method="post">
+    <form name="user" action="new_assignment?kid=${kurs.kID}&anummer=${kurs.aNummer}" method="post">
 
         <h3>Course:</h3> ${kurs.courseName} <br/>
         <h3>Task:</h3> ${kurs.taskName} <br/>

@@ -51,7 +51,7 @@ public class DeliveredServlet extends HttpServlet {
                 for (int i = 0; i < taskList.size(); i++) {
                     if (taskList.get(i).getaNummer() == taskIDInt) {
                         taskToShowList.add(new TaskToShow(courseList.get(0).getName(),
-                                taskIDInt, taskList.get(i).getName(), taskList.get(i).getBeschreibung()));
+                                taskIDInt, taskList.get(i).getName(), taskList.get(i).getBeschreibung(), courseIDInt));
                     }
                 }
                 request.setAttribute("error", errorMessage);

@@ -5,12 +5,22 @@ public class TaskToShow {
     private int aNummer;
     private String taskName;
     private String taskDescription;
+    private int kID;
 
-    public TaskToShow(String courseName, int aNummer, String taskName, String taskDescription) {
+    public TaskToShow(String courseName, int aNummer, String taskName, String taskDescription, int kID) {
         this.courseName = courseName;
         this.aNummer = aNummer;
         this.taskName = taskName;
         this.taskDescription = taskDescription;
+        this.kID = kID;
+    }
+
+    public int getkID() {
+        return kID;
+    }
+
+    public void setkID(int kID) {
+        this.kID = kID;
     }
 
     public String getCourseName() {
