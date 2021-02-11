@@ -32,33 +32,41 @@ public class DeliveredServlet extends HttpServlet {
         throws ServletException, IOException
     {
         if(!DBUtil.theUser.isEmpty()) {
-            errorMessage = "";
-            String courseID = request.getParameter("kid");
-            String taskID = request.getParameter("anummer");
-            if(!courseID.isEmpty() && !courseID.equals("null"))
-            {
-                courseIDInt = Integer.parseInt(courseID);
-            }
-            List<Integer> list1 = new ArrayList<>();
-            list1.add(courseIDInt);
-            if(!taskID.isEmpty() && !taskID.equals("null"))
-            {
-                taskIDInt = Integer.parseInt(taskID);
-            }
-            List<Course> courseList = courseStore.showMyOwnCourses(list1);
-            List<Task> taskList = aufgabeStore.fetchTasksFromCourseID(courseIDInt);
-            List<TaskToShow> taskToShowList = new ArrayList<>();
-            for (int i=0; i < taskList.size(); i++)
-            {
-                if(taskList.get(i).getaNummer() == taskIDInt)
-                {
-                    taskToShowList.add(new TaskToShow(courseList.get(0).getName(),
-                            taskIDInt, taskList.get(i).getName(), taskList.get(i).getBeschreibung()));
+            if(einreichenStore.fetchAbgabeID(userStore.fetchBNummerFromEmail(DBUtil.theUser),
+                    courseIDInt, taskIDInt) == 0) {
+                errorMessage = "";
+                String courseID = request.getParameter("kid");
+                String taskID = request.getParameter("anummer");
+                if (!courseID.isEmpty() && !courseID.equals("null")) {
+                    courseIDInt = Integer.parseInt(courseID);
                 }
+                List<Integer> list1 = new ArrayList<>();
+                list1.add(courseIDInt);
+                if (!taskID.isEmpty() && !taskID.equals("null")) {
+                    taskIDInt = Integer.parseInt(taskID);
+                }
+                List<Course> courseList = courseStore.showMyOwnCourses(list1);
+                List<Task> taskList = aufgabeStore.fetchTasksFromCourseID(courseIDInt);
+                List<TaskToShow> taskToShowList = new ArrayList<>();
+                for (int i = 0; i < taskList.size(); i++) {
+                    if (taskList.get(i).getaNummer() == taskIDInt) {
+                        taskToShowList.add(new TaskToShow(courseList.get(0).getName(),
+                                taskIDInt, taskList.get(i).getName(), taskList.get(i).getBeschreibung()));
+                    }
+                }
+                request.setAttribute("error", errorMessage);
+                request.setAttribute("registered", taskToShowList);
+                request.getRequestDispatcher("/assignmentPage.ftl").forward(request, response);
             }
-            request.setAttribute("error", errorMessage);
-            request.setAttribute("registered", taskToShowList);
-            request.getRequestDispatcher("/assignmentPage.ftl").forward(request, response);
+            else
+            {
+                errorMessage = "";
+                errorMessage += "Error: You have already submitted your answer to this task!";
+                request.setAttribute("error", errorMessage);
+                List<TaskToShow> emptyListToShow = new ArrayList<>();
+                request.setAttribute("registered", emptyListToShow);
+                request.getRequestDispatcher("/assignmentPage.ftl").forward(request, response);
+            }
         }
         else
         {
