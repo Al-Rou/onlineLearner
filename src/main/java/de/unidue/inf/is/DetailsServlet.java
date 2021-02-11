@@ -64,8 +64,15 @@ public class DetailsServlet extends HttpServlet {
                                     einreichenStore.fetchAbgabeID(userStore.fetchBNummerFromEmail(DBUtil.theUser),
                                             myTasks.get(k).getkID(), myTasks.get(k).getaNummer()));
                             myDeliveryList.add(myDelivery);
-                            myGradeList.add(aufgabeStore.fetchGrade(einreichenStore.fetchAbgabeID(userStore.fetchBNummerFromEmail(DBUtil.theUser),
-                                    myTasks.get(k).getkID(), myTasks.get(k).getaNummer())));
+                            if(!aufgabeStore.fetchGrade(einreichenStore.fetchAbgabeID(userStore.fetchBNummerFromEmail(DBUtil.theUser),
+                                    myTasks.get(k).getkID(), myTasks.get(k).getaNummer())).equals("0")) {
+                                myGradeList.add(aufgabeStore.fetchGrade(einreichenStore.fetchAbgabeID(userStore.fetchBNummerFromEmail(DBUtil.theUser),
+                                        myTasks.get(k).getkID(), myTasks.get(k).getaNummer())));
+                            }
+                            else
+                            {
+                                myGradeList.add("Noch keine Bewertung");
+                            }
                         }
                         else
                         {
