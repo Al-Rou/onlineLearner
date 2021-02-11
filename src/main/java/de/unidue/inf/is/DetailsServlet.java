@@ -21,6 +21,11 @@ public class DetailsServlet extends HttpServlet {
     private static EinreichenStore einreichenStore = new EinreichenStore();
     private static int courseIDInt;
 
+    public void setCourseIDInt(int a)
+    {
+        courseIDInt = a;
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException

@@ -80,6 +80,7 @@ public class CourseRegistrationServlet extends HttpServlet {
                 //MainPageServlet mainPageServlet = new MainPageServlet();
                 //mainPageServlet.doGet(request, response);
                 DetailsServlet detailsServlet = new DetailsServlet();
+                detailsServlet.setCourseIDInt(idToRegisterInt);
                 detailsServlet.doGet(request, response);
 
             }
@@ -98,6 +99,7 @@ public class CourseRegistrationServlet extends HttpServlet {
                 //MainPageServlet mainPageServlet = new MainPageServlet();
                 //mainPageServlet.doGet(request, response);
                 DetailsServlet detailsServlet = new DetailsServlet();
+                detailsServlet.setCourseIDInt(idToRegisterInt);
                 detailsServlet.doGet(request, response);
 
             }
