@@ -11,9 +11,9 @@
 <#list registered as kurs>
     <form name="user" action="delete" method="post">
 
-        Course: <br/>
-        Task: <br/>
-        Description: <br/>
+        Course: ${kurs.courseName} <br/>
+        Task: ${kurs.taskName} <br/>
+        Description: ${kurs.taskDescription} <br/>
         Answer: <textarea name="answer" rows="10" cols="40"></textarea>
 
         <input type="submit" value="deliver"/>
