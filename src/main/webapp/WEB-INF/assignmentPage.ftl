@@ -11,9 +11,12 @@
 <#list registered as kurs>
     <form name="user" action="delete" method="post">
 
-        Are you sure about deleting ${kurs.name} ?<br/>
+        Course: <br/>
+        Task: <br/>
+        Description: <br/>
+        Answer: <textarea name="answer" rows="10" cols="40"></textarea>
 
-        <input type="submit" value="delete"/>
+        <input type="submit" value="deliver"/>
     </form>
 </#list>
 <a href="/view_main"><button>Return to Main Page</button></a>
