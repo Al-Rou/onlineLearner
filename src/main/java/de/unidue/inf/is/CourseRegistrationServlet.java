@@ -77,10 +77,9 @@ public class CourseRegistrationServlet extends HttpServlet {
         if(enteredPass.equals("register"))
         {
             if(registrationStore.registerInCourse(idToRegisterInt)) {
-                //MainPageServlet mainPageServlet = new MainPageServlet();
-                //mainPageServlet.doGet(request, response);
-                DetailsServlet detailsServlet = new DetailsServlet();
-                detailsServlet.doGet(request, response);
+                MainPageServlet mainPageServlet = new MainPageServlet();
+                mainPageServlet.doGet(request, response);
+
             }
             else
             {
@@ -94,10 +93,9 @@ public class CourseRegistrationServlet extends HttpServlet {
         {
             if(registrationStore.registerInCourse(idToRegisterInt))
             {
-                //MainPageServlet mainPageServlet = new MainPageServlet();
-                //mainPageServlet.doGet(request, response);
-                DetailsServlet detailsServlet = new DetailsServlet();
-                detailsServlet.doGet(request, response);
+                MainPageServlet mainPageServlet = new MainPageServlet();
+                mainPageServlet.doGet(request, response);
+
             }
             else
             {
