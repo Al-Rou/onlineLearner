@@ -11,7 +11,7 @@
 
 <#list registered as kurs>
     <h1>${kurs.name}</h1><br/>
-<form name="user" action="new_enroll" method="post">
+<form name="user" action="new_enroll?kid=${kurs.kID}" method="post">
 
     Registration Password: <input type="text" name="pass"/><br/>
 
