@@ -78,6 +78,29 @@ public class RegistrationStore implements Closeable {
             throw new StoreException(e);
         }
     }
+    public boolean isRegistered(int bnummer, int kid) throws StoreException
+    {
+        makeConnection();
+        try {
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("select * from dbp151.einschreiben where bnummer=? and kid=?");
+            preparedStatement.setInt(1, bnummer);
+            preparedStatement.setInt(2, kid);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            boolean result = false;
+            if(resultSet.next())
+            {
+                result = true;
+            }
+            preparedStatement.close();
+            complete = true;
+            close();
+            return result;
+        } catch (SQLException | IOException e)
+        {
+            throw new StoreException(e);
+        }
+    }
 
     @Override
     public void close() throws IOException

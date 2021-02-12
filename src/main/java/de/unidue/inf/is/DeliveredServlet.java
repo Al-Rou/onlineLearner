@@ -3,10 +3,7 @@ package de.unidue.inf.is;
 import de.unidue.inf.is.domain.Course;
 import de.unidue.inf.is.domain.Task;
 import de.unidue.inf.is.domain.TaskToShow;
-import de.unidue.inf.is.stores.AufgabeStore;
-import de.unidue.inf.is.stores.CourseStore;
-import de.unidue.inf.is.stores.EinreichenStore;
-import de.unidue.inf.is.stores.UserStore;
+import de.unidue.inf.is.stores.*;
 import de.unidue.inf.is.utils.DBUtil;
 
 import javax.servlet.ServletException;
@@ -26,6 +23,7 @@ public class DeliveredServlet extends HttpServlet {
     private AufgabeStore aufgabeStore = new AufgabeStore();
     private UserStore userStore = new UserStore();
     private EinreichenStore einreichenStore = new EinreichenStore();
+    private RegistrationStore registrationStore = new RegistrationStore();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -38,30 +36,39 @@ public class DeliveredServlet extends HttpServlet {
                 if (!courseID.isEmpty() && !courseID.equals("null")) {
                     courseIDInt = Integer.parseInt(courseID);
                 }
-                List<Integer> list1 = new ArrayList<>();
-                list1.add(courseIDInt);
-                if (!taskID.isEmpty() && !taskID.equals("null")) {
-                    taskIDInt = Integer.parseInt(taskID);
-                }
-                if(einreichenStore.fetchAbgabeID(userStore.fetchBNummerFromEmail(DBUtil.theUser),
-                    courseIDInt, taskIDInt) == 0) {
-                    List<Course> courseList = courseStore.showMyOwnCourses(list1);
-                    List<Task> taskList = aufgabeStore.fetchTasksFromCourseID(courseIDInt);
-                    List<TaskToShow> taskToShowList = new ArrayList<>();
-                    for (int i = 0; i < taskList.size(); i++) {
-                        if (taskList.get(i).getaNummer() == taskIDInt) {
-                            taskToShowList.add(new TaskToShow(courseList.get(0).getName(),
-                                    taskIDInt, taskList.get(i).getName(), taskList.get(i).getBeschreibung(), courseIDInt));
-                        }
+                if(registrationStore.isRegistered(userStore.fetchBNummerFromEmail(DBUtil.theUser), courseIDInt)) {
+                    List<Integer> list1 = new ArrayList<>();
+                    list1.add(courseIDInt);
+                    if (!taskID.isEmpty() && !taskID.equals("null")) {
+                        taskIDInt = Integer.parseInt(taskID);
                     }
-                    request.setAttribute("error", errorMessage);
-                    request.setAttribute("registered", taskToShowList);
-                    request.getRequestDispatcher("/assignmentPage.ftl").forward(request, response);
+                    if (einreichenStore.fetchAbgabeID(userStore.fetchBNummerFromEmail(DBUtil.theUser),
+                            courseIDInt, taskIDInt) == 0) {
+                        List<Course> courseList = courseStore.showMyOwnCourses(list1);
+                        List<Task> taskList = aufgabeStore.fetchTasksFromCourseID(courseIDInt);
+                        List<TaskToShow> taskToShowList = new ArrayList<>();
+                        for (int i = 0; i < taskList.size(); i++) {
+                            if (taskList.get(i).getaNummer() == taskIDInt) {
+                                taskToShowList.add(new TaskToShow(courseList.get(0).getName(),
+                                        taskIDInt, taskList.get(i).getName(), taskList.get(i).getBeschreibung(), courseIDInt));
+                            }
+                        }
+                        request.setAttribute("error", errorMessage);
+                        request.setAttribute("registered", taskToShowList);
+                        request.getRequestDispatcher("/assignmentPage.ftl").forward(request, response);
+                    } else {
+                        errorMessage = "";
+                        errorMessage += "Error: You have already submitted your answer to this task!";
+                        request.setAttribute("error", errorMessage);
+                        List<TaskToShow> emptyListToShow = new ArrayList<>();
+                        request.setAttribute("registered", emptyListToShow);
+                        request.getRequestDispatcher("/assignmentPage.ftl").forward(request, response);
+                    }
                 }
                 else
                 {
                     errorMessage = "";
-                    errorMessage += "Error: You have already submitted your answer to this task!";
+                    errorMessage += "Error: Register in the course first!";
                     request.setAttribute("error", errorMessage);
                     List<TaskToShow> emptyListToShow = new ArrayList<>();
                     request.setAttribute("registered", emptyListToShow);
@@ -88,8 +95,6 @@ public class DeliveredServlet extends HttpServlet {
         {
             if(einreichenStore.insertText(answerText, courseIDInt, taskIDInt, userStore.fetchBNummerFromEmail(DBUtil.theUser)))
             {
-                //MainPageServlet mainPageServlet = new MainPageServlet();
-                //mainPageServlet.doGet(request, response);
                 DetailsServlet detailsServlet = new DetailsServlet();
                 detailsServlet.doGet(request, response);
             }
