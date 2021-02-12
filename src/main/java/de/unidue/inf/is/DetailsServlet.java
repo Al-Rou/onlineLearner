@@ -26,13 +26,7 @@ public class DetailsServlet extends HttpServlet {
         throws ServletException, IOException
     {
         String courseID = "";
-        if (request.getParameter("kid").equals(null))
-        {
-            courseID += "63";
-        }
-        else {
-            courseID += request.getParameter("kid");
-        }
+        courseID += request.getParameter("kid");
         if(!courseID.isEmpty() && !courseID.equals("null")) {
             courseIDInt = Integer.parseInt(courseID);
         }
