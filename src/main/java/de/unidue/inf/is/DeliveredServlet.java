@@ -32,8 +32,6 @@ public class DeliveredServlet extends HttpServlet {
         throws ServletException, IOException
     {
         if(!DBUtil.theUser.isEmpty()) {
-            //if(einreichenStore.fetchAbgabeID(userStore.fetchBNummerFromEmail(DBUtil.theUser),
-                    //courseIDInt, taskIDInt) == 0) {
                 errorMessage = "";
                 String courseID = request.getParameter("kid");
                 String taskID = request.getParameter("anummer");
@@ -69,16 +67,6 @@ public class DeliveredServlet extends HttpServlet {
                     request.setAttribute("registered", emptyListToShow);
                     request.getRequestDispatcher("/assignmentPage.ftl").forward(request, response);
                 }
-            //}
-            /*else
-            {
-                errorMessage = "";
-                errorMessage += "Error: You have already submitted your answer to this task!";
-                request.setAttribute("error", errorMessage);
-                List<TaskToShow> emptyListToShow = new ArrayList<>();
-                request.setAttribute("registered", emptyListToShow);
-                request.getRequestDispatcher("/assignmentPage.ftl").forward(request, response);
-            }*/
         }
         else
         {
@@ -100,8 +88,10 @@ public class DeliveredServlet extends HttpServlet {
         {
             if(einreichenStore.insertText(answerText, courseIDInt, taskIDInt, userStore.fetchBNummerFromEmail(DBUtil.theUser)))
             {
-                MainPageServlet mainPageServlet = new MainPageServlet();
-                mainPageServlet.doGet(request, response);
+                //MainPageServlet mainPageServlet = new MainPageServlet();
+                //mainPageServlet.doGet(request, response);
+                DetailsServlet detailsServlet = new DetailsServlet();
+                detailsServlet.doGet(request, response);
             }
             else
             {
