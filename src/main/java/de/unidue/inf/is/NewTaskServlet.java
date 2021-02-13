@@ -17,6 +17,7 @@ public class NewTaskServlet extends HttpServlet {
         throws ServletException, IOException
     {
         if(!DBUtil.theUser.isEmpty()) {
+            errorMessage = "";
             request.setAttribute("error", errorMessage);
             request.getRequestDispatcher("/taskPage.ftl").forward(request, response);
         }
@@ -25,7 +26,7 @@ public class NewTaskServlet extends HttpServlet {
             errorMessage = "";
             errorMessage += "Error: You must login first as an authorized user!";
             request.setAttribute("error", errorMessage);
-            request.getRequestDispatcher("/taskPage.ftl").forward(request, response);
+            request.getRequestDispatcher("/errorPage.ftl").forward(request, response);
         }
     }
 
