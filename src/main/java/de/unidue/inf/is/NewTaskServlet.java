@@ -1,5 +1,6 @@
 package de.unidue.inf.is;
 
+import de.unidue.inf.is.stores.AufgabeStore;
 import de.unidue.inf.is.utils.DBUtil;
 
 import javax.servlet.ServletException;
@@ -11,14 +12,16 @@ import java.io.IOException;
 public class NewTaskServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private static String errorMessage = "";
+    private static String errorMessage2 = "";
+    private static AufgabeStore aufgabeStore = new AufgabeStore();
+    private static int courseIDInt;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
         if(!DBUtil.theUser.isEmpty()) {
-            errorMessage = "";
-            request.setAttribute("error", errorMessage);
+            request.setAttribute("error", errorMessage2);
             request.getRequestDispatcher("/taskPage.ftl").forward(request, response);
         }
         else
@@ -34,6 +37,22 @@ public class NewTaskServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
+        String courseID = request.getParameter("kid");
+        if (!courseID.isEmpty() && !courseID.equals("null"))
+        {
+            courseIDInt = Integer.parseInt(courseID);
+        }
+        String taskName = request.getParameter("titel");
+        String taskDes = request.getParameter("descrip");
+        if (aufgabeStore.insertNewTask(courseIDInt, taskName, taskDes))
+        {
+            doGet(request, response);
+        }
+        else
+        {
+            errorMessage2 = "";
+            errorMessage2 += "Error: Something is wrong with database! Try again later!";
 
+        }
     }
 }

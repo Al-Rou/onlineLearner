@@ -127,6 +127,26 @@ public class AufgabeStore implements Closeable {
             throw new StoreException(e);
         }
     }
+    public boolean insertNewTask(int kid, String name, String description) throws StoreException
+    {
+        makeConnection();
+        try {
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("insert into dbp151.aufgabe (kid, name, beschreibung) values (?,?,?)");
+            preparedStatement.setInt(1, kid);
+            preparedStatement.setString(2, name);
+            preparedStatement.setString(3, description);
+            preparedStatement.executeUpdate();
+
+            preparedStatement.close();
+            complete = true;
+            close();
+            return complete;
+        } catch (SQLException | IOException e)
+        {
+            throw new StoreException(e);
+        }
+    }
     @Override
     public void close() throws IOException
     {
