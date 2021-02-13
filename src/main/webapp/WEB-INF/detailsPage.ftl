@@ -22,7 +22,7 @@
     <br/>
     Number of Free Seats: ${owndetails.freiePlaetze}
     <br/>
-    <a href="/delete?kid=${owndetails.kID}"><button>Delete</button></a>
+    <a href="/delete?kid=${owndetails.kID}"><button>Delete</button></a>&nbsp;<a href="/new_task?kid=${ownauf.kID}"><button>Create a new task</button></a>
     <br/>
     ==================================================
 
@@ -38,8 +38,7 @@
         <tr>
             <td><a href="/new_assignment?kid=${ownauf.kID}&anummer=${ownauf.aNummer}">${ownauf.name}</a></td> <td>${ownauf.text}</td> <td>${ownauf.grade}</td>
         </tr>
-            <br/>
-            <a href="/new_task?kid=${ownauf.kID}"><button>Create a new task</button></a>
+
         </#list>
     </table>
 <a href="/"><button>Back to login</button></a><br/>
