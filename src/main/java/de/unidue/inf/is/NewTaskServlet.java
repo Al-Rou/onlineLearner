@@ -21,6 +21,11 @@ public class NewTaskServlet extends HttpServlet {
         throws ServletException, IOException
     {
         if(!DBUtil.theUser.isEmpty()) {
+            String courseID = request.getParameter("kid");
+            if (!courseID.isEmpty() && !courseID.equals("null"))
+            {
+                courseIDInt = Integer.parseInt(courseID);
+            }
             request.setAttribute("error", errorMessage2);
             request.getRequestDispatcher("/taskPage.ftl").forward(request, response);
         }
@@ -37,16 +42,12 @@ public class NewTaskServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
-        String courseID = request.getParameter("kid");
-        if (!courseID.isEmpty() && !courseID.equals("null"))
-        {
-            courseIDInt = Integer.parseInt(courseID);
-        }
         String taskName = request.getParameter("titel");
         String taskDes = request.getParameter("descrip");
         if (aufgabeStore.insertNewTask(courseIDInt, taskName, taskDes))
         {
-            doGet(request, response);
+            MainPageServlet mainPageServlet = new MainPageServlet();
+            mainPageServlet.doGet(request, response);
         }
         else
         {
