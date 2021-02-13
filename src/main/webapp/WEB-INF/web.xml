@@ -127,6 +127,16 @@
 		<servlet-name>delivered_servlet</servlet-name>
 		<url-pattern>/new_assignment</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>newTask_servlet</servlet-name>
+		<servlet-class>de.unidue.inf.is.NewTaskServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>newTask_servlet</servlet-name>
+		<url-pattern>/new_task</url-pattern>
+	</servlet-mapping>
 	
 	<servlet>
 		<servlet-name>onlineLearner_servlet</servlet-name>
