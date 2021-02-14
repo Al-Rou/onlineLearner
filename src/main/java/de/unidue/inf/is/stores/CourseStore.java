@@ -94,8 +94,16 @@ public class CourseStore implements Closeable {
             int result = 0;
             while (resultSet.next())
             {
-
+                result = resultSet.getInt(1);
             }
+            resultSet.close();
+            preparedStatement.close();
+            complete = true;
+            close();
+            return result;
+        }catch (SQLException | IOException e)
+        {
+            throw new StoreException(e);
         }
     }
     public boolean addNewCourse(Course addedCourse) throws StoreException
