@@ -83,6 +83,21 @@ public class CourseStore implements Closeable {
             throw new StoreException(e);
         }
     }
+    public int giveProducerFromCourseID(int kid) throws StoreException
+    {
+        makeConnection();
+        try {
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("select ersteller from dbp151.kurs where kid=?");
+            preparedStatement.setInt(1, kid);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            int result = 0;
+            while (resultSet.next())
+            {
+
+            }
+        }
+    }
     public boolean addNewCourse(Course addedCourse) throws StoreException
     {
         makeConnection();
