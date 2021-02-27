@@ -19,6 +19,9 @@ public class AssessServlet extends HttpServlet {
             ServletException, IOException
     {
         List<TaskToShow> emptyList = new ArrayList<>();
+        TaskToShow taskToShow = new TaskToShow("Datenbanken", 3, "SQL",
+                "Wofür steht SQL?", 20);
+        emptyList.add(taskToShow);
         request.setAttribute("registered", emptyList);
         request.setAttribute("error", errorMessage);
         request.getRequestDispatcher("/assessPage.ftl").forward(request, response);
