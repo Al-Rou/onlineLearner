@@ -14,7 +14,11 @@
         <h3>Task:</h3> ${kurs.taskName} <br/>
         <h3>Description:</h3> ${kurs.taskDescription} <br/>
         <h3>Delivered Answer:</h3> ${kurs.courseName} <br/>
-        <h3>Grade:</h3><input type="radio" name="grade">
+        <h3>Grade:</h3><input type="radio" name="grade" value="1"/>1
+                       <input type="radio" name="grade" value="2">2
+                       <input type="radio" name="answer" value="3">3
+                       <input type="radio" name="answer" value="4">4
+                       <input type="radio" name="grade" value="5">5<br/>
         <h3>Comment:</h3> <textarea name="answer" rows="10" cols="40"></textarea><br/>
 
         <input type="submit" value="deliver"/>
