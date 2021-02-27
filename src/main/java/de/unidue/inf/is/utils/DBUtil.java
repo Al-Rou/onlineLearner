@@ -70,8 +70,10 @@ public final class DBUtil {
 		String database = properties.getProperty("database");
 		
 		String gruppennummer = user.split("(?<=\\D)(?=\\d)")[1];
+        //String gruppennummer = "151";
 
         final String url = "jdbc:db2://"+rechnername+".is.inf.uni-due.de:50"+gruppennummer+"/" + database + ":currentSchema="+user+";";
+        //final String url = "jdbc:db2://"+rechnername+".is.inf.uni-due.de:50"+gruppennummer+"/" + database + ":currentSchema=dbp151;";
         Connection connection = DriverManager.getConnection(url, user,pass);
         return connection;
     }
