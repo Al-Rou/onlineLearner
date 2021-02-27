@@ -9,7 +9,7 @@
 <br/>
 
 <#list registered as kurs>
-    <form name="user" action="new_assignment?kid=${kurs.kID}&anummer=${kurs.aNummer}" method="post">
+    <form name="user" action="view_main" method="post">
 
         <h3>Task:</h3> ${kurs.taskName} <br/>
         <h3>Description:</h3> ${kurs.taskDescription} <br/>
@@ -21,7 +21,7 @@
                        <input type="radio" name="grade" value="5">5<br/>
         <h3>Comment:</h3> <textarea name="answer" rows="10" cols="40"></textarea><br/>
 
-        <input type="submit" value="deliver"/>
+        <input type="submit" value="send evaluation"/>
     </form>
 </#list>
 <a href="/view_main"><button>Return to Main Page</button></a>
