@@ -9,7 +9,7 @@
 <br/>
 
 <#list registered as kurs>
-    <form name="user" action="view_main" method="post">
+    <form name="user" action="assess" method="post">
 
         <h3>Task:</h3> ${kurs.taskName} <br/>
         <h3>Description:</h3> ${kurs.taskDescription} <br/>
