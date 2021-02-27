@@ -23,6 +23,7 @@
     Number of Free Seats: ${owndetails.freiePlaetze}
     <br/>
     <a href="/delete?kid=${owndetails.kID}"><button>Delete</button></a>&nbsp;<a href="/new_task?kid=${owndetails.kID}"><button>Create a new task</button></a>
+    <a href="/all_tasks?kid=${owndetails.kID}"><button>See all tasks to evaluate</button></a>
     <br/>
     ==================================================
 
