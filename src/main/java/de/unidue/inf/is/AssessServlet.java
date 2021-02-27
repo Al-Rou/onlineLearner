@@ -26,4 +26,11 @@ public class AssessServlet extends HttpServlet {
         request.setAttribute("error", errorMessage);
         request.getRequestDispatcher("/assessPage.ftl").forward(request, response);
     }
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws
+            ServletException, IOException
+    {
+        MainPageServlet mainPageServlet = new MainPageServlet();
+        mainPageServlet.doGet(request, response);
+    }
 }
