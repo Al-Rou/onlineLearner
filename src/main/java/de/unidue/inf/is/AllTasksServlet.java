@@ -18,8 +18,10 @@ public class AllTasksServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
+        String courseID = request.getParameter("kid");
+        int courseIDInt = Integer.parseInt(courseID);
         List<TaskToShow> emptyList = new ArrayList<>();
-        //emptyList.add(new TaskToShow("SQL",2,"What","Why is SQL needed?",6));
+        emptyList.add(new TaskToShow("SQL",2,"What","Why is SQL needed?",courseIDInt));
         request.setAttribute("error", errorMessage);
         request.setAttribute("kurse", emptyList);
         request.getRequestDispatcher("/allTasksPage.ftl").forward(request,response);
