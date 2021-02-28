@@ -52,6 +52,29 @@ public class CourseStore implements Closeable {
             throw new StoreException(e);
         }
     }
+    public String fetchNameFromCourseID(int courseID) throws StoreException
+    {
+        makeConnection();
+        try {
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("select name from dbp151.kurs where kid=?");
+            preparedStatement.setInt(1, courseID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            String result = "";
+            while (resultSet.next())
+            {
+                result += resultSet.getString("name");
+            }
+            resultSet.close();
+            preparedStatement.close();
+            complete = true;
+            close();
+            return result;
+        }catch (SQLException | IOException e)
+        {
+            throw new StoreException(e);
+        }
+    }
     public List<Course> showMyOwnCourses(List<Integer> courseIDs) throws StoreException
     {
         makeConnection();

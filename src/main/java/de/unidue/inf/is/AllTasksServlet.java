@@ -1,6 +1,9 @@
 package de.unidue.inf.is;
 
+import de.unidue.inf.is.domain.Task;
 import de.unidue.inf.is.domain.TaskToShow;
+import de.unidue.inf.is.stores.AufgabeStore;
+import de.unidue.inf.is.stores.CourseStore;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +16,8 @@ import java.util.List;
 public class AllTasksServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private static String errorMessage = "";
+    private static CourseStore courseStore = new CourseStore();
+    private static AufgabeStore aufgabeStore = new AufgabeStore();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -20,10 +25,17 @@ public class AllTasksServlet extends HttpServlet {
     {
         String courseID = request.getParameter("kid");
         int courseIDInt = Integer.parseInt(courseID);
-        List<TaskToShow> emptyList = new ArrayList<>();
-        emptyList.add(new TaskToShow("SQL",2,"What","Why is SQL needed?",courseIDInt));
+        String courseName = courseStore.fetchNameFromCourseID(courseIDInt);
+        List<Task> list = aufgabeStore.fetchTasksFromCourseID(courseIDInt);
+        List<TaskToShow> listToShow = new ArrayList<>();
+        for(int i = 0; i < list.size(); i++)
+        {
+            listToShow.add(new TaskToShow(courseName, list.get(i).getaNummer(),
+                    list.get(i).getName(), list.get(i).getBeschreibung(), courseIDInt));
+        }
+        //emptyList.add(new TaskToShow("SQL",2,"What","Why is SQL needed?",courseIDInt));
         request.setAttribute("error", errorMessage);
-        request.setAttribute("kurse", emptyList);
+        request.setAttribute("kurse", listToShow);
         request.getRequestDispatcher("/allTasksPage.ftl").forward(request,response);
     }
 }
