@@ -52,7 +52,31 @@ public class EinreichenStore implements Closeable {
             throw new StoreException(e);
         }
     }
-
+    public int fetchResponder(int aid, int kid, int anummer) throws StoreException
+    {
+        makeConnection();
+        try{
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("select * from dbp151.einreichen where aid=? and kid=? and anummer=?");
+            preparedStatement.setInt(1, aid);
+            preparedStatement.setInt(2, kid);
+            preparedStatement.setInt(3, anummer);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            int result = 0;
+            while (resultSet.next())
+            {
+                result = (resultSet.getInt("bnummer"));
+            }
+            resultSet.close();
+            preparedStatement.close();
+            complete = true;
+            close();
+            return result;
+        }catch (SQLException | IOException e)
+        {
+            throw new StoreException(e);
+        }
+    }
     public int fetchAbgabeID(int bnummer, int kid, int anummer) throws StoreException
     {
         makeConnection();
