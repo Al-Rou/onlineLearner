@@ -14,12 +14,12 @@
         <h3>Description:</h3> ${kurs.taskDescription} <br/>
 </#list>
 <#list textforassess as text>
-    <form name="user" action="view_main" method="post">
+    <form name="user" action="assess" method="post">
         <h3>Delivered Answer:</h3> ${text.abgabeText} <br/>
         <h3>Grade:</h3><input type="radio" name="grade" value="1"/>1
                        <input type="radio" name="grade" value="2">2
-                       <input type="radio" name="answer" value="3">3
-                       <input type="radio" name="answer" value="4">4
+                       <input type="radio" name="grade" value="3">3
+                       <input type="radio" name="grade" value="4">4
                        <input type="radio" name="grade" value="5">5<br/>
         <h3>Comment:</h3> <textarea name="answer" rows="10" cols="40"></textarea><br/>
 
