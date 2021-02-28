@@ -33,7 +33,6 @@ public class AllTasksServlet extends HttpServlet {
             listToShow.add(new TaskToShow(courseName, list.get(i).getaNummer(),
                     list.get(i).getName(), list.get(i).getBeschreibung(), courseIDInt));
         }
-        //emptyList.add(new TaskToShow("SQL",2,"What","Why is SQL needed?",courseIDInt));
         request.setAttribute("courseName", courseName);
         request.setAttribute("error", errorMessage);
         request.setAttribute("kurse", listToShow);
