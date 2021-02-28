@@ -16,8 +16,9 @@
     </tr>
     <#list abgabe as answers>
         <tr>
-            <td>${answers.abgabeText}<button>Evaluate this answer</button></td>
+            <td>${answers.abgabeText}<a href="/assess?kid=${answers.kID}"><button>Evaluate this answer</button></a></td>
         </tr>
+        <br/>
         ====================================
     </#list>
 </table>

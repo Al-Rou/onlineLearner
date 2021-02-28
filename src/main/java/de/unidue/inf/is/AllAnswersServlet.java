@@ -1,6 +1,7 @@
 package de.unidue.inf.is;
 
 import de.unidue.inf.is.domain.Delivery;
+import de.unidue.inf.is.domain.DeliveryToShow;
 import de.unidue.inf.is.domain.Task;
 
 import javax.servlet.ServletException;
@@ -21,8 +22,8 @@ public class AllAnswersServlet extends HttpServlet {
     {
         List<Task> list = new ArrayList<>();
         list.add(new Task(7, 62, "SQL", "What is SQL?"));
-        List<Delivery> list2 = new ArrayList<>();
-        list2.add(new Delivery(5, "I don't know!"));
+        List<DeliveryToShow> list2 = new ArrayList<>();
+        list2.add(new DeliveryToShow(5, "I don't know!", 8));
         request.setAttribute("error", errorMessage);
         request.setAttribute("aufgabe", list);
         request.setAttribute("abgabe", list2);
