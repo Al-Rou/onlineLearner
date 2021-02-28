@@ -56,18 +56,22 @@ public class AufgabeStore implements Closeable {
             throw new StoreException(e);
         }
     }
-    public String fetchNameFromAufgabeNummer(int anummer) throws StoreException
+    public List<Task> fetchTaskFromAufgabeNummer(int kid, int anummer) throws StoreException
     {
         makeConnection();
         try {
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("select name from dbp151.aufgabe where anummer=?");
+                    .prepareStatement("select name from dbp151.aufgabe where anummer=? and kid=?");
             preparedStatement.setInt(1, anummer);
+            preparedStatement.setInt(2, kid);
             ResultSet resultSet = preparedStatement.executeQuery();
-            String result = "";
+            List<Task> result = new ArrayList<>();
             while (resultSet.next())
             {
-                result += (resultSet.getString(1));
+                result.add(new Task(resultSet.getInt("kid"),
+                        resultSet.getInt("anummer"),
+                        resultSet.getString("name"),
+                        resultSet.getString("beschreibung")));
             }
             resultSet.close();
             preparedStatement.close();
