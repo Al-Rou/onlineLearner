@@ -24,6 +24,8 @@ public class AllAnswersServlet extends HttpServlet {
         list.add(new Task(7, 62, "SQL", "What is SQL?"));
         List<DeliveryToShow> list2 = new ArrayList<>();
         list2.add(new DeliveryToShow(5, "I don't know!", 8));
+        list2.add(new DeliveryToShow(6, "Really?!", 9));
+        list2.add(new DeliveryToShow(7, "Come On!", 10));
         request.setAttribute("error", errorMessage);
         request.setAttribute("aufgabe", list);
         request.setAttribute("abgabe", list2);

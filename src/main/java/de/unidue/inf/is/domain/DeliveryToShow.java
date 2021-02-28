@@ -11,6 +11,14 @@ public class DeliveryToShow {
         this.kID = kID;
     }
 
+    public int getkID() {
+        return kID;
+    }
+
+    public void setkID(int kID) {
+        this.kID = kID;
+    }
+
     public int getaID() {
         return aID;
     }
