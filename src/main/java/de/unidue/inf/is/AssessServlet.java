@@ -39,13 +39,25 @@ public class AssessServlet extends HttpServlet {
         List<TaskToShow> listToShow = new ArrayList<>();
         listToShow.add(new TaskToShow(courseName, taskIDInt, list.get(0).getName(),
                 list.get(0).getBeschreibung(), courseIDInt));
-        Delivery delivery = einreichenStore.fetchAbgabeTextFromAbgabeID(deliveryIDInt);
-        List<Delivery> secondListToShow = new ArrayList<>();
-        secondListToShow.add(delivery);
-        request.setAttribute("registered", listToShow);
-        request.setAttribute("textforassess", secondListToShow);
-        request.setAttribute("error", errorMessage);
-        request.getRequestDispatcher("/assessPage.ftl").forward(request, response);
+        if (!bewertenStore.checkIfExists(userStore.fetchBNummerFromEmail(DBUtil.theUser), deliveryIDInt)) {
+            Delivery delivery = einreichenStore.fetchAbgabeTextFromAbgabeID(deliveryIDInt);
+            List<Delivery> secondListToShow = new ArrayList<>();
+            secondListToShow.add(delivery);
+            request.setAttribute("registered", listToShow);
+            request.setAttribute("textforassess", secondListToShow);
+            request.setAttribute("error", errorMessage);
+            request.getRequestDispatcher("/assessPage.ftl").forward(request, response);
+        }
+        else
+        {
+            errorMessage = "";
+            errorMessage += "You have already graded this answer!";
+            List<Delivery> secondListToShow = new ArrayList<>();
+            request.setAttribute("registered", listToShow);
+            request.setAttribute("textforassess", secondListToShow);
+            request.setAttribute("error", errorMessage);
+            request.getRequestDispatcher("/assessPage.ftl").forward(request, response);
+        }
     }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws

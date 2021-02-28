@@ -1,6 +1,7 @@
 package de.unidue.inf.is.stores;
 
 import de.unidue.inf.is.domain.Course;
+import de.unidue.inf.is.domain.Evaluation;
 import de.unidue.inf.is.utils.DBUtil;
 
 import java.io.Closeable;
@@ -25,6 +26,35 @@ public class BewertenStore implements Closeable {
             return connection;
         } catch (SQLException e)
         {
+            throw new StoreException(e);
+        }
+    }
+    public boolean checkIfExists(int bnummer, int aid) throws StoreException {
+        makeConnection();
+        try {
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("select * from dbp151.bewerten where bnummer=? and aid=?");
+            preparedStatement.setInt(1, bnummer);
+            preparedStatement.setInt(2, aid);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<Evaluation> list = new ArrayList<>();
+            boolean result = true;
+            while (resultSet.next())
+            {
+                list.add(new Evaluation(resultSet.getInt("bnummer"),
+                        resultSet.getInt("aid"), resultSet.getInt("note"),
+                        resultSet.getString("kommentar")));
+            }
+            if(list.isEmpty())
+            {
+                result = false;
+            }
+            preparedStatement.close();
+            complete = true;
+            close();
+            return result;
+        }
+        catch (SQLException | IOException e) {
             throw new StoreException(e);
         }
     }
