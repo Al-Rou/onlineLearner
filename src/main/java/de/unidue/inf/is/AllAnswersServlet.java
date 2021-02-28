@@ -6,6 +6,7 @@ import de.unidue.inf.is.domain.Task;
 import de.unidue.inf.is.domain.TaskToShow;
 import de.unidue.inf.is.stores.AufgabeStore;
 import de.unidue.inf.is.stores.CourseStore;
+import de.unidue.inf.is.stores.EinreichenStore;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +21,7 @@ public class AllAnswersServlet extends HttpServlet {
     private static String errorMessage = "";
     private static AufgabeStore aufgabeStore = new AufgabeStore();
     private static CourseStore courseStore = new CourseStore();
+    private static EinreichenStore einreichenStore = new EinreichenStore();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -35,12 +37,15 @@ public class AllAnswersServlet extends HttpServlet {
         for (int i = 0; i < list.size(); i++) {
             list1ToShow.add(new TaskToShow(courseName, taskIDInt, list.get(i).getName(), list.get(i).getBeschreibung(), courseIDInt));
         }
+        List<Delivery> list3 = einreichenStore.fetchAllAnswers(courseIDInt, taskIDInt);
         List<DeliveryToShow> list2 = new ArrayList<>();
-        list2.add(new DeliveryToShow(5, "I don't know!", courseIDInt));
-        list2.add(new DeliveryToShow(6, "Really?!", courseIDInt));
-        list2.add(new DeliveryToShow(7, "Come On!", courseIDInt));
+        for (int i = 0; i < list3.size(); i++)
+        {
+            list2.add(new DeliveryToShow(list3.get(i).getaID(),
+                    list3.get(i).getAbgabeText(), courseIDInt));
+        }
         request.setAttribute("error", errorMessage);
-        request.setAttribute("aufgabe", list);
+        request.setAttribute("aufgabe", list1ToShow);
         request.setAttribute("abgabe", list2);
         request.getRequestDispatcher("/allAnswersPage.ftl").forward(request,response);
     }

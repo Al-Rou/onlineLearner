@@ -81,6 +81,47 @@ public class EinreichenStore implements Closeable {
             throw new StoreException(e);
         }
     }
+    public List<Delivery> fetchAllAnswers(int kid, int anummer) throws StoreException
+    {
+        makeConnection();
+        try{
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("select * from dbp151.einreichen where kid=? and anummer=?");
+            preparedStatement.setInt(1, kid);
+            preparedStatement.setInt(2, anummer);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<HandIn> firstResult = new ArrayList<>();
+            while (resultSet.next())
+            {
+                firstResult.add(new HandIn(resultSet.getInt("bnummer"),
+                        resultSet.getInt("anummer"), resultSet.getInt("aid"),
+                        resultSet.getInt("kid")));
+            }
+            resultSet.close();
+            preparedStatement.close();
+            List<Delivery> result = new ArrayList<>();
+            for(int i = 0; i < firstResult.size(); i++)
+            {
+                PreparedStatement preparedStatement1 = connection
+                        .prepareStatement("select * from dbp151.abgabe where aid=?");
+                preparedStatement1.setInt(1, firstResult.get(i).getaID());
+                ResultSet resultSet1 = preparedStatement1.executeQuery();
+                while (resultSet1.next())
+                {
+                    result.add(new Delivery(resultSet1.getInt("aid"),
+                            resultSet1.getString("abgabetext")));
+                }
+                resultSet1.close();
+                preparedStatement1.close();
+            }
+            complete = true;
+            close();
+            return result;
+        }catch (SQLException | IOException e)
+        {
+            throw new StoreException(e);
+        }
+    }
     public Delivery fetchAbgabeTextFromAbgabeID(int aid) throws StoreException
     {
         makeConnection();
