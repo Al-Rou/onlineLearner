@@ -139,6 +139,16 @@
 	</servlet-mapping>
 
 	<servlet>
+		<servlet-name>allAnswers_servlet</servlet-name>
+		<servlet-class>de.unidue.inf.is.AllAnswersServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>allAnswers_servlet</servlet-name>
+		<url-pattern>/all_answers</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
 		<servlet-name>assess_servlet</servlet-name>
 		<servlet-class>de.unidue.inf.is.AssessServlet</servlet-class>
 	</servlet>
