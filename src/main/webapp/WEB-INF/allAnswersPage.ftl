@@ -6,20 +6,22 @@
 </div>
 <br/>
 <#list aufgabe as question>
-    <h3>Task:</h3>${question.name}
+    <h3>Course:</h3>${question.courseName}
     <br/>
-    <h3>Description:</h3>${question.beschreibung}
+    <h3>Task:</h3>${question.taskName}
+    <br/>
+    <h3>Description:</h3>${question.taskDescription}
 </#list>
 <table class="answertable">
     <tr>
         <th><h3>Received Answers</h3></th>
+        <br/>
+        ====================================
     </tr>
     <#list abgabe as answers>
         <tr>
             <td>${answers.abgabeText}<a href="/assess?kid=${answers.kID}"><button>Evaluate this answer</button></a></td>
         </tr>
-        <br/>
-        ====================================
     </#list>
 </table>
 </body>
