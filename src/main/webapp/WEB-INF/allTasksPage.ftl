@@ -17,5 +17,6 @@
         </tr>
     </table>
 </#list>
+<a href="/view_main"><button>Return to Main Page</button></a>
 </body>
 </html>

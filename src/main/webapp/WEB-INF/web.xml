@@ -129,6 +129,16 @@
 	</servlet-mapping>
 
 	<servlet>
+		<servlet-name>allTasks_servlet</servlet-name>
+		<servlet-class>de.unidue.inf.is.AllTasksServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>allTasks_servlet</servlet-name>
+		<url-pattern>/all_tasks</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
 		<servlet-name>assess_servlet</servlet-name>
 		<servlet-class>de.unidue.inf.is.AssessServlet</servlet-class>
 	</servlet>
