@@ -5,18 +5,18 @@
     <a href="/"><button>Go to login</button></a>
 </div>
 <br/>
-<#list kurse as course>
-    <h3>Click on each task to see all received answers</h3>
-    <br/>
+<h3>Click on each task to see all received answers</h3>
     <table class="coursetable">
         <tr>
-            <th>List of all tasks for ${course.courseName}</th>
+            <th>List of all tasks for ${courseName}</th>
         </tr>
+        <#list kurse as course>
         <tr>
-            <td><a href="/all_answers?kid=${course.kID}&anummer=${course.aNummer}">${course.taskName}</a> </td>
+            <td><a href="/all_answers?kid=${course.kID}&anummer=${course.aNummer}">${course.taskName}</a></td>
+            <td>${course.taskDescription}</td>
         </tr>
+        </#list>
     </table>
-</#list>
 <a href="/view_main"><button>Return to Main Page</button></a>
 </body>
 </html>
