@@ -61,7 +61,7 @@ public class AufgabeStore implements Closeable {
         makeConnection();
         try {
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("select name from dbp151.aufgabe where anummer=? and kid=?");
+                    .prepareStatement("select * from dbp151.aufgabe where anummer=? and kid=?");
             preparedStatement.setInt(1, anummer);
             preparedStatement.setInt(2, kid);
             ResultSet resultSet = preparedStatement.executeQuery();

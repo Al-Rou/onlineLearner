@@ -20,7 +20,7 @@
     </tr>
     <#list abgabe as answers>
         <tr>
-            <td>${answers.abgabeText}<a href="/assess?kid=${answers.kID}"><button>Evaluate this answer</button></a></td>
+            <td>${answers.abgabeText}<a href="/assess?kid=${answers.kID}&aid=${answers.aID}&anummer=${answers.aNummer}"><button>Evaluate this answer</button></a></td>
         </tr>
     </#list>
 </table>

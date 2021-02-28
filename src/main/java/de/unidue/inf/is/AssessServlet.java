@@ -18,6 +18,10 @@ public class AssessServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws
             ServletException, IOException
     {
+        String courseID = request.getParameter("kid");
+        int courseIDInt = Integer.parseInt(courseID);
+        String deliveryID = request.getParameter("aid");
+        int deliveryIDInt = Integer.parseInt(deliveryID);
         List<TaskToShow> emptyList = new ArrayList<>();
         TaskToShow taskToShow = new TaskToShow("Datenbanken", 3, "SQL",
                 "Wofür steht SQL?", 20);

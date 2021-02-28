@@ -42,7 +42,7 @@ public class AllAnswersServlet extends HttpServlet {
         for (int i = 0; i < list3.size(); i++)
         {
             list2.add(new DeliveryToShow(list3.get(i).getaID(),
-                    list3.get(i).getAbgabeText(), courseIDInt));
+                    list3.get(i).getAbgabeText(), courseIDInt, taskIDInt));
         }
         request.setAttribute("error", errorMessage);
         request.setAttribute("aufgabe", list1ToShow);

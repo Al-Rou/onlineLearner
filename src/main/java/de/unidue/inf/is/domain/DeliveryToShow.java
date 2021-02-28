@@ -4,11 +4,21 @@ public class DeliveryToShow {
     private int aID;
     private String abgabeText;
     private int kID;
+    private int aNummer;
 
-    public DeliveryToShow(int aID, String abgabeText, int kID) {
+    public int getaNummer() {
+        return aNummer;
+    }
+
+    public void setaNummer(int aNummer) {
+        this.aNummer = aNummer;
+    }
+
+    public DeliveryToShow(int aID, String abgabeText, int kID, int aNummer) {
         this.aID = aID;
         this.abgabeText = abgabeText;
         this.kID = kID;
+        this.aNummer = aNummer;
     }
 
     public int getkID() {
