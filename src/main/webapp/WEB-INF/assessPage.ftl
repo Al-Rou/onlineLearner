@@ -15,7 +15,7 @@
 </#list>
 <#list textforassess as text>
     <form name="user" action="view_main" method="post">
-        <h3>Delivered Answer:</h3> ${text} <br/>
+        <h3>Delivered Answer:</h3> ${text.abgabeText} <br/>
         <h3>Grade:</h3><input type="radio" name="grade" value="1"/>1
                        <input type="radio" name="grade" value="2">2
                        <input type="radio" name="answer" value="3">3
